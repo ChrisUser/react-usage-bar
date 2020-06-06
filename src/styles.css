@@ -1,0 +1,87 @@
+:root {
+  --text-color: hsl(0, 0%, 100%);
+  --background-tooltip-color: hsl(0, 0%, 13%);
+  --background-bar-color: hsla(0, 0%, 0%, 0.07);
+}
+:root[theme="dark"] {
+  --text-color: hsl(0, 0%, 13%);
+  --background-tooltip-color: hsl(0, 0%, 100%);
+  --background-bar-color: hsl(0, 0%, 26%);
+}
+
+.panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  background-color: inherit;
+  color: inherit;
+  font-size: 1em;
+  padding: 1em 1.3em;
+  height: 6em;
+}
+.bar {
+  position: relative;
+  height: 0.6em;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background-color: inherit;
+  background-color: var(--background-bar-color);
+  border-radius: 0.32em;
+}
+.element:first-child {
+  border-radius: 0.32em 0 0 0.32em;
+}
+.element:last-child {
+  border-radius: 0 0.32em 0.32em 0;
+}
+.element:nth-child(odd) > .tooltip {
+  top: -2.3em;
+}
+.element:nth-child(odd) > .tooltip::after {
+  border-top: 0.5em solid var(--background-tooltip-color);
+  bottom: -0.44em;
+}
+.element:nth-child(even) > .tooltip {
+  bottom: -2.3em;
+}
+.element:nth-child(even) > .tooltip::after {
+  border-bottom: 0.5em solid var(--background-tooltip-color);
+  top: -0.44em;
+}
+.element {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  position: relative;
+  height: 100%;
+}
+.element > .tooltip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  position: absolute;
+  padding: 0.2em 0.4em 0.2em;
+  border-radius: 0.32em;
+  background-color: var(--background-tooltip-color);
+  color: var(--text-color);
+  font-size: 0.9em;
+}
+.element > .tooltip::after {
+  z-index: -1;
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-left: 0.31em solid transparent;
+  border-right: 0.31em solid transparent;
+}
