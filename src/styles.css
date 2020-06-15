@@ -9,7 +9,7 @@
   --background-bar-color: hsl(0, 0%, 26%);
 }
 
-.panel {
+.UsageBar {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@
   padding: 1em 1.3em;
   height: 6em;
 }
-.bar {
+.UsageBar__bar {
   position: relative;
   height: 0.6em;
   width: 100%;
@@ -34,27 +34,29 @@
   background-color: var(--background-bar-color);
   border-radius: 0.32em;
 }
-.element:first-child {
+.UsageBar__bar__element:first-child {
   border-radius: 0.32em 0 0 0.32em;
 }
-.element:last-child {
+.UsageBar__bar__element:last-child {
   border-radius: 0 0.32em 0.32em 0;
 }
-.element:nth-child(odd) > .tooltip {
+.UsageBar__bar__element:nth-child(odd) > .UsageBar__bar__element--tooltip {
   top: -2.3em;
 }
-.element:nth-child(odd) > .tooltip::after {
+.UsageBar__bar__element:nth-child(odd)
+  > .UsageBar__bar__element--tooltip::after {
   border-top: 0.5em solid var(--background-tooltip-color);
   bottom: -0.44em;
 }
-.element:nth-child(even) > .tooltip {
+.UsageBar__bar__element:nth-child(even) > .UsageBar__bar__element--tooltip {
   bottom: -2.3em;
 }
-.element:nth-child(even) > .tooltip::after {
+.UsageBar__bar__element:nth-child(even)
+  > .UsageBar__bar__element--tooltip::after {
   border-bottom: 0.5em solid var(--background-tooltip-color);
   top: -0.44em;
 }
-.element {
+.UsageBar__bar__element {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,7 +65,7 @@
   position: relative;
   height: 100%;
 }
-.element > .tooltip {
+.UsageBar__bar__element--tooltip {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,7 +78,7 @@
   color: var(--text-color);
   font-size: 0.9em;
 }
-.element > .tooltip::after {
+.UsageBar__bar__element--tooltip::after {
   z-index: -1;
   content: "";
   width: 0;

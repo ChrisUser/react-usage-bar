@@ -10,7 +10,8 @@
     "lint": "standard",
     "format": "prettier-standard --format",
     "test": "jest --coverage",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "build-storybook": "build-storybook -c .storybook -o .out"
   },
   "keywords": [
     "react",

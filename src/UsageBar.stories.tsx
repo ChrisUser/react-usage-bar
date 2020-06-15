@@ -37,7 +37,7 @@ export const withoutLabels = () => (
 export const errors = () => {
   return (
     <div>
-      <span>If sum of values exceeds total.</span>
+      <p>If sum of values exceeds total.</p>
       <UsageBar items={items} total={50} />
     </div>
   )

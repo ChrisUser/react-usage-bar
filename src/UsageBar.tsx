@@ -74,12 +74,12 @@ const UsageBar: React.FC<Props> = ({
     )
 
   return (
-    <div className="panel">
-      <div className="bar">
+    <div className="UsageBar">
+      <div className="UsageBar__bar">
         {items.map((element: Item) => {
           return (
             <div
-              className="element"
+              className="UsageBar__bar__element"
               style={{
                 width: `${getPercentageValue(element.value)}%`,
                 backgroundColor: element.color || setColor(),
@@ -88,7 +88,7 @@ const UsageBar: React.FC<Props> = ({
               {removeLabels ? (
                 ""
               ) : (
-                <div className="tooltip">
+                <div className="UsageBar__bar__element--tooltip">
                   {element.name +
                     " " +
                     (showPercentage
