@@ -1,6 +1,6 @@
 {
   "name": "react-usage-bar",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Usage bar, graphic component for React",
   "main": "build/index.js",
   "module": "build/index.es.js",

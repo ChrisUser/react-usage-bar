@@ -1,5 +1,5 @@
 import * as React from "react"
-import "./styles.css"
+import "./index.css"
 
 interface Item {
   color?: string
