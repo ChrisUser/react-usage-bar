@@ -76,9 +76,10 @@ const UsageBar: React.FC<Props> = ({
   return (
     <div className="UsageBar">
       <div className="UsageBar__bar">
-        {items.map((element: Item) => {
+        {items.map((element: Item, index: number) => {
           return (
             <div
+              key={index}
               className="UsageBar__bar__element"
               style={{
                 width: `${getPercentageValue(element.value)}%`,

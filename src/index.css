@@ -18,12 +18,12 @@
   background-color: inherit;
   color: inherit;
   font-size: 1em;
-  padding: 1em 1.3em;
-  height: 6em;
+  padding: 8pt;
+  height: 60pt;
 }
 .UsageBar__bar {
   position: relative;
-  height: 0.6em;
+  height: 7pt;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -32,29 +32,29 @@
   flex-wrap: nowrap;
   background-color: inherit;
   background-color: var(--background-bar-color);
-  border-radius: 0.32em;
+  border-radius: 4pt;
 }
 .UsageBar__bar__element:first-child {
-  border-radius: 0.32em 0 0 0.32em;
+  border-radius: 4pt 0 0 4pt;
 }
 .UsageBar__bar__element:last-child {
-  border-radius: 0 0.32em 0.32em 0;
+  border-radius: 0 4pt 4pt 0;
 }
 .UsageBar__bar__element:nth-child(odd) > .UsageBar__bar__element--tooltip {
-  top: -2.3em;
+  top: -25pt;
 }
 .UsageBar__bar__element:nth-child(odd)
   > .UsageBar__bar__element--tooltip::after {
-  border-top: 0.5em solid var(--background-tooltip-color);
-  bottom: -0.44em;
+  border-top: 5pt solid var(--background-tooltip-color);
+  bottom: -5pt;
 }
 .UsageBar__bar__element:nth-child(even) > .UsageBar__bar__element--tooltip {
-  bottom: -2.3em;
+  bottom: -25pt;
 }
 .UsageBar__bar__element:nth-child(even)
   > .UsageBar__bar__element--tooltip::after {
-  border-bottom: 0.5em solid var(--background-tooltip-color);
-  top: -0.44em;
+  border-bottom: 5pt solid var(--background-tooltip-color);
+  top: -5pt;
 }
 .UsageBar__bar__element {
   display: flex;
@@ -72,8 +72,8 @@
   flex-direction: row;
   flex-wrap: nowrap;
   position: absolute;
-  padding: 0.2em 0.4em 0.2em;
-  border-radius: 0.32em;
+  padding: 2pt 5pt;
+  border-radius: 4pt;
   background-color: var(--background-tooltip-color);
   color: var(--text-color);
   font-size: 0.9em;
@@ -84,6 +84,6 @@
   width: 0;
   height: 0;
   position: absolute;
-  border-left: 0.31em solid transparent;
-  border-right: 0.31em solid transparent;
+  border-left: 3pt solid transparent;
+  border-right: 3pt solid transparent;
 }

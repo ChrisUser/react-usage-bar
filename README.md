@@ -38,6 +38,7 @@ The `total` value is also required.
 ```javascript
 import * from 'react'
 import UsageBar from 'react-usage-bar'
+import "react-usage-bar/build/index.css"
 
 const App = () => {
 
@@ -86,6 +87,14 @@ When true hides all the tooltips or lables of the items.
 Enables the component to work in dark-mode.
 
 ## CSS Styles
+
+You should import the style directly from the package directory, like this:
+
+```javascript
+import "react-usage-bar/build/index.css"
+```
+
+The main css classes are the following:
 
 ### `.UsageBar`
 
