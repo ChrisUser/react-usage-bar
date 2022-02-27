@@ -30,11 +30,12 @@ export default {
     }),
     external(),
     resolve(),
-    typescript({
-      rollupCommonJSResolveHack: true,
-      exclude: ["**/__tests__/**", "**/*.stories.tsx"],
-      clean: true,
-    }),
+    //typescript({
+    //  rollupCommonJSResolveHack: true,
+    //  exclude: ["**/__tests__/**", "**/*.stories.tsx"],
+    //  clean: true,
+    //}),
+    // typescript(),
     terser(),
     commonjs({
       include: ["node_modules/**"],

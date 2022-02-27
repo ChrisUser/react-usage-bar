@@ -3,21 +3,25 @@
 ![React Usage Bar](example.png)
 
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-## Installation
+## 🔌 Installation
 
-Install via npm or yarn
+Install via npm
 
 ```sh
 npm install react-usage-bar --save
+```
+
+or yarn
+
+```sh
 yarn add react-usage-bar
 ```
 
-Alternatively just download `UsageBar.tsx` and `styles.css` from the `src` folder and include them in your project in your chosen way.
-
-Keep in mind that the source code of the project needs [Typescript](https://www.typescriptlang.org/) to work.
-
-## Usage
+## 🔧 Usage
 
 The usage bar needs to receive an array of items. In order to display all the values correctly every item should follow this interface:
 
@@ -42,7 +46,7 @@ import "react-usage-bar/build/index.css"
 
 const App = () => {
 
-    const a = [
+  const itemsToDisplay = [
   {
     name: "UI",
     value: 10,
@@ -63,14 +67,15 @@ const App = () => {
   {
     name: "Other",
     value: 8,
-  },
-]
+  }]
 
-    return <UsageBar items={a} total={100} />
+  return <UsageBar items={itemsToDisplay} total={100} />
 })
 
 export default App
 ```
+
+<br>
 
 ## Props (Options)
 
@@ -86,19 +91,29 @@ When true hides all the tooltips or lables of the items.
 
 Enables the component to work in dark-mode.
 
+### **compactLayout** | _boolean_ | default: `false`
+
+The new compact design. _**Try it**_.
+
+<br>
+
 ## CSS Styles
 
-You should import the style directly from the package directory, like this:
+You must import the style directly from the package directory, like this:
 
 ```javascript
 import "react-usage-bar/build/index.css"
 ```
 
-The main css classes are the following:
+The main css classes are the following (**Spoiler**: There are more of them):
 
 ### `.UsageBar`
 
 The main div of the component.
+
+### `.UsageBar__error`
+
+The error message.
 
 ### `.UsageBar__bar`
 
@@ -112,20 +127,28 @@ The single item represented in the bar.
 
 The tooltip of the item in which are written all the textual info.
 
-- `::after` | Is used to make the triangular shape on the bottom (or top) of the tooltips.
+- `.UsageBar__bar__element--tooltip--element__percentage` - Used to control the style of the percentage lables.
 
-## Docs
+- `::after` - Is used to make the triangular shape on the bottom (or top) of the tooltips.
 
-You can run the documentation of the component using [Storybook](https://storybook.js.org/):
+<br>
+
+## 📖 Docs (https://chrisuser.github.io/react-usage-bar)
+
+<br>
+
+You can also run the project in a local enviroment using [Storybook](https://storybook.js.org/):
 
 ```
 $ yarn storybook
 ```
 
-## Issues
+<br>
 
-Please create an issue for any bug or feature requests.
+## Contribution
+
+If you have a suggestion that would make this component better feel free to open a pull request or create an issue for any bug you find.
 
 ## Licence
 
-React Usage Bar is [MIT licensed](https://github.com/ChrisUser/react-usage-bar/blob/master/LICENSE)
+React Usage Bar is [MIT licensed](https://github.com/ChrisUser/react-usage-bar/blob/master/LICENSE).

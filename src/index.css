@@ -1,15 +1,20 @@
-:root {
+.UsageBar__light {
   --text-color: hsl(0, 0%, 100%);
   --background-tooltip-color: hsl(0, 0%, 13%);
-  --background-bar-color: hsla(0, 0%, 0%, 0.07);
+  --background-bar-color: hsl(0, 0%, 93%);
 }
-:root[theme="dark"] {
+.UsageBar__dark {
   --text-color: hsl(0, 0%, 13%);
   --background-tooltip-color: hsl(0, 0%, 100%);
-  --background-bar-color: hsl(0, 0%, 26%);
+  --background-bar-color: hsl(0, 0%, 43%);
 }
 
 .UsageBar {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +28,7 @@
 }
 .UsageBar__bar {
   position: relative;
-  height: 7pt;
+  height: 8pt;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -34,27 +39,33 @@
   background-color: var(--background-bar-color);
   border-radius: 4pt;
 }
-.UsageBar__bar__element:first-child {
+.UsageBar__bar__element:not(:first-of-type) {
+  border-left: 1px solid var(--background-bar-color);
+}
+.UsageBar__bar__element:not(:last-of-type) {
+  border-right: 1px solid var(--background-bar-color);
+}
+.UsageBar__bar__element:first-of-type {
   border-radius: 4pt 0 0 4pt;
 }
-.UsageBar__bar__element:last-child {
+.UsageBar__bar__element:last-of-type {
   border-radius: 0 4pt 4pt 0;
 }
 .UsageBar__bar__element:nth-child(odd) > .UsageBar__bar__element--tooltip {
-  top: -25pt;
+  top: -26pt;
 }
 .UsageBar__bar__element:nth-child(odd)
   > .UsageBar__bar__element--tooltip::after {
   border-top: 5pt solid var(--background-tooltip-color);
-  bottom: -5pt;
+  bottom: -4pt;
 }
 .UsageBar__bar__element:nth-child(even) > .UsageBar__bar__element--tooltip {
-  bottom: -25pt;
+  bottom: -26pt;
 }
 .UsageBar__bar__element:nth-child(even)
   > .UsageBar__bar__element--tooltip::after {
   border-bottom: 5pt solid var(--background-tooltip-color);
-  top: -5pt;
+  top: -4pt;
 }
 .UsageBar__bar__element {
   display: flex;
@@ -68,22 +79,74 @@
 .UsageBar__bar__element--tooltip {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   flex-direction: row;
   flex-wrap: nowrap;
   position: absolute;
-  padding: 2pt 5pt;
+  padding: 5pt;
   border-radius: 4pt;
   background-color: var(--background-tooltip-color);
   color: var(--text-color);
   font-size: 0.9em;
+  line-height: 1;
+}
+.UsageBar__bar__element--tooltip--element__percentage {
+  opacity: 0.78;
+  font-size: .9em;
+  margin: 0 0 0 3pt;
 }
 .UsageBar__bar__element--tooltip::after {
-  z-index: -1;
+  z-index: 1;
   content: "";
   width: 0;
   height: 0;
   position: absolute;
-  border-left: 3pt solid transparent;
-  border-right: 3pt solid transparent;
+  border-left: 4pt solid transparent;
+  border-right: 4pt solid transparent;
+}
+
+.Compact__UsageBar {
+  height: auto !important;
+}
+.UsageBar__bar__compact__bar {
+  max-width: 500px;
+}
+.UsageBar__bar__elements__labels__container {
+  margin-top: 12pt;
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12pt;
+  font-size: .9em;
+}
+.UsageBar__bar__elements__label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.UsageBar__bar__elements__label > span,
+.UsageBar__bar__elements__label > .UsageBar__bar__element--tooltip--element__percentage {
+  color: var(--background-tooltip-color);
+}
+
+.UsageBar__bar__elements__label--dot {
+  border-radius: 50%;
+  margin-right: 6pt;
+  height: 8pt;
+  width: 8pt;
+}
+
+.UsageBar__error {
+  color: #ff2525;
+  font-weight: bold;
+  letter-spacing: 0.3pt;
+  line-height: 1.5em;
+  text-decoration: underline;
 }

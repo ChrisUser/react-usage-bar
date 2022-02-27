@@ -1,13 +1,17 @@
 import * as React from "react"
 import UsageBar from "./UsageBar"
 
-export default { title: "UsageBar", component: UsageBar }
+export default { 
+  title: "Usage Bar",
+  component: UsageBar,
+  parameters: {}
+}
 
 const items = [
   {
     name: "UI",
     value: 10,
-    color: "#000000",
+    color: "#E85D04",
   },
   {
     name: "Photos",
@@ -27,18 +31,19 @@ const items = [
   },
 ]
 
-export const basic = () => <UsageBar items={items} total={100} />
-export const withPercentages = () => (
-  <UsageBar showPercentage={true} items={items} total={100} />
+export const lightMode = () => <UsageBar items={items} total={100} />
+
+export const withoutLabels = () => <UsageBar removeLabels items={items} total={100} />
+
+export const withPercentages = () => <UsageBar showPercentage items={items} total={100} />
+
+export const compactLayout = () => <UsageBar showPercentage compactLayout items={items} total={100} />
+
+export const compactLayoutWithoutLabels = () => <UsageBar removeLabels compactLayout items={items} total={100} />
+
+export const error = () => (
+  <>
+    <p>If sum of values exceeds total.</p>
+    <UsageBar items={items} total={50} />
+  </>
 )
-export const withoutLabels = () => (
-  <UsageBar removeLabels={true} items={items} total={100} />
-)
-export const errors = () => {
-  return (
-    <div>
-      <p>If sum of values exceeds total.</p>
-      <UsageBar items={items} total={50} />
-    </div>
-  )
-}
