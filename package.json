@@ -97,5 +97,8 @@
       "afterAll",
       "jest"
     ]
+  },
+  "dependencies": {
+    "postcss": "^8.4.7"
   }
 }

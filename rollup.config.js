@@ -24,12 +24,12 @@ export default {
     },
   ],
   plugins: [
+    resolve(),
     postcss({
       extensions: [".css"],
       extract: true,
     }),
     external(),
-    resolve(),
     typescript({
       rollupCommonJSResolveHack: true,
       exclude: ["**/__tests__/**", "**/*.stories.tsx"],

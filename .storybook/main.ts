@@ -4,5 +4,17 @@ module.exports = {
     "@storybook/addon-docs",
     "@storybook/addon-viewport",
     "@storybook/addon-a11y",
-  ]
+  ],
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      compilerOptions: {
+        allowJs: true,
+        checkJs: false,
+        jsx: "react",
+        allowSyntheticDefaultImports: false,
+        esModuleInterop: false,
+      },
+    }
+  }
 }
