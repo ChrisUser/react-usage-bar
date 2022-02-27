@@ -1,6 +1,7 @@
 # React Usage Bar Graphic Component
 
 ![React Usage Bar](example.png)
+![React Usage Bar](example2.png)
 
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
@@ -21,9 +22,11 @@ or yarn
 yarn add react-usage-bar
 ```
 
+<br>
+
 ## 🔧 Usage
 
-Live **demo** at: [https://chrisuser.github.io/react-usage-bar](https://chrisuser.github.io/react-usage-bar)
+Live **demo** at: [https://chrisuser.github.io/react-usage-bar/docs/](https://chrisuser.github.io/react-usage-bar/docs/)
 
 The usage bar needs to receive an array of items. In order to display all the values correctly every item should follow this interface:
 
