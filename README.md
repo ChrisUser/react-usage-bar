@@ -137,8 +137,6 @@ The tooltip of the item in which are written all the textual info.
 
 ## 📖 Docs
 
-<br>
-
 You can run the project in a local enviroment using [Storybook](https://storybook.js.org/):
 
 ```
