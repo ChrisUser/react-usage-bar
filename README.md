@@ -23,6 +23,8 @@ yarn add react-usage-bar
 
 ## 🔧 Usage
 
+Live **demo** at: [https://chrisuser.github.io/react-usage-bar](https://chrisuser.github.io/react-usage-bar)
+
 The usage bar needs to receive an array of items. In order to display all the values correctly every item should follow this interface:
 
 ### Item type
@@ -133,11 +135,11 @@ The tooltip of the item in which are written all the textual info.
 
 <br>
 
-## 📖 Docs (https://chrisuser.github.io/react-usage-bar)
+## 📖 Docs
 
 <br>
 
-You can also run the project in a local enviroment using [Storybook](https://storybook.js.org/):
+You can run the project in a local enviroment using [Storybook](https://storybook.js.org/):
 
 ```
 $ yarn storybook

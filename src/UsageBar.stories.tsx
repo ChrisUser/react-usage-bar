@@ -11,7 +11,7 @@ const items = [
   {
     name: "UI",
     value: 10,
-    color: "#E75D04",
+    color: "#E85D04",
   },
   {
     name: "Photos",
