@@ -1,7 +1,7 @@
 # React Usage Bar Graphic Component
 
-![React Usage Bar](example.png)
-![React Usage Bar](example2.png)
+![React Usage Bar first example](example.png)
+![React Usage Bar compact design](example_compact.png)
 
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
