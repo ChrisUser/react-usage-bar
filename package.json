@@ -1,13 +1,12 @@
 {
   "name": "react-usage-bar",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Usage bar, graphic component for React",
   "main": "build/index.js",
   "module": "build/index.es.js",
   "jsnext:main": "build/index.es.js",
   "files": [
-    "build/*",
-    "example.png"
+    "build/*"
   ],
   "repository": {
     "type": "git",
