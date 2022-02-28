@@ -1,4 +1,4 @@
-name: Semantic release 
+name: Semantic release
 
 on: push
 jobs:
@@ -10,10 +10,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16
-      - name: Install dependencies
-        run: npm install 
-      - name: Build app
-        run: npm run build 
+      - name: Install and Build
+        run: | # Install npm packages and build the src files
+          npm install --force
+          npm run build
       - name: Semantic release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

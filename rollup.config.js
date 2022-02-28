@@ -35,7 +35,6 @@ export default {
       exclude: ["**/__tests__/**", "**/*.stories.tsx"],
       clean: true,
     }),
-    //typescript(),
     terser(),
     commonjs({
       include: ["node_modules/**"],
