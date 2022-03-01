@@ -24,7 +24,9 @@
   color: inherit;
   font-size: 1em;
   padding: 8pt;
+  position: relative;
   height: 60pt;
+  width: 100%;
 }
 .UsageBar__bar {
   position: relative;
@@ -92,7 +94,7 @@
 }
 .UsageBar__bar__element--tooltip--element__percentage {
   opacity: 0.78;
-  font-size: .9em;
+  font-size: 0.9em;
   margin: 0 0 0 3pt;
 }
 .UsageBar__bar__element--tooltip::after {
@@ -122,7 +124,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 12pt;
-  font-size: .9em;
+  font-size: 0.9em;
 }
 .UsageBar__bar__elements__label {
   display: flex;
@@ -132,7 +134,8 @@
   flex-wrap: nowrap;
 }
 .UsageBar__bar__elements__label > span,
-.UsageBar__bar__elements__label > .UsageBar__bar__element--tooltip--element__percentage {
+.UsageBar__bar__elements__label
+  > .UsageBar__bar__element--tooltip--element__percentage {
   color: var(--background-tooltip-color);
 }
 
