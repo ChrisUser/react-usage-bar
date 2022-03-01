@@ -11,7 +11,7 @@ module.exports = {
       compilerOptions: {
         outDir: "build",
         module: "esnext",
-        target: "es5",
+        target: "esnext",
         lib: ["es6", "dom", "es2016", "es2017"],
         sourceMap: true,
         allowJs: false,
@@ -26,7 +26,6 @@ module.exports = {
         noUnusedLocals: false,
         noUnusedParameters: true,
         esModuleInterop: true,
-        typeRoots: ["../node_modules/@types", "../types"],
       },
     },
   },
