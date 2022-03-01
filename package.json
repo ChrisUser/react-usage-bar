@@ -1,6 +1,6 @@
 {
   "name": "react-usage-bar",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Usage bar, graphic component for React",
   "main": "build/index.js",
   "module": "build/index.mjs",
@@ -45,13 +45,17 @@
     "@types/react-dom": "^17.0.11",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.1.0",
+    "esbuild": "^0.14.23",
     "jest": "^27.5.1",
+    "postcss": "^8.4.7",
     "prettier-standard": "^16.3.0",
     "react": "^17.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^17.0.2",
     "rollup": "^2.10.9",
     "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-dts": "^4.1.0",
+    "rollup-plugin-esbuild": "^4.8.2",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.2",
     "rollup-plugin-postcss": "^4.0.2",
@@ -96,11 +100,5 @@
       "afterAll",
       "jest"
     ]
-  },
-  "dependencies": {
-    "esbuild": "^0.14.23",
-    "postcss": "^8.4.7",
-    "rollup-plugin-dts": "^4.1.0",
-    "rollup-plugin-esbuild": "^4.8.2"
   }
 }
