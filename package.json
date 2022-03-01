@@ -13,7 +13,7 @@
     "url": "https://github.com/ChrisUser/react-usage-bar.git"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "rm -rf dist && rollup -c && tsc --emitDeclarationOnly",
     "lint": "standard",
     "format": "prettier-standard --format",
     "test": "jest --coverage",
