@@ -1,6 +1,6 @@
 {
   "name": "react-usage-bar",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Usage bar, graphic component for React",
   "main": "build/index.js",
   "module": "build/index.mjs",
@@ -13,7 +13,7 @@
     "url": "https://github.com/ChrisUser/react-usage-bar.git"
   },
   "scripts": {
-    "build": "rm -rf dist && rollup -c && tsc --emitDeclarationOnly",
+    "build": "rollup -c && tsc --emitDeclarationOnly",
     "lint": "standard",
     "format": "prettier-standard --format",
     "test": "jest --coverage",
