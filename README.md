@@ -110,31 +110,57 @@ You must import the style directly from the package directory, like this:
 import "react-usage-bar/build/index.css"
 ```
 
-The main css classes are the following (**Spoiler**: There are more of them):
+The project variables are:
 
-### `.UsageBar`
+- `--text-color`
+- `--background-tooltip-color`
+- `--background-bar-color`
 
-The main div of the component.
+The main css classes are the following:
 
-### `.UsageBar__error`
+### `.u-UsageBar__error`
 
 The error message.
 
-### `.UsageBar__bar`
+### `.u-UsageBar-light`
+
+The class that contains all the colors for the light mode.
+
+### `.u-UsageBar-dark`
+
+The class that contains all the colors for the dark mode.
+
+### `.c-UsageBar` | `.c-UsageBar__compact`
+
+The main div of the component.
+
+### `.o-UsageBar__bar` | `.o-UsageBar__compact__bar`
 
 The actual bar of the component.
 
-### `.UsageBar__bar__element`
+### `.o-UsageBar__bar__element`
 
-The single item represented in the bar.
+The single item represented in the bar. This class is vastly used.
 
-### `.UsageBar__bar__element--tooltip`
+### `.o-UsageBar__bar__tooltip`
 
 The tooltip of the item in which are written all the textual info.
 
-- `.UsageBar__bar__element--tooltip--element__percentage` - Used to control the style of the percentage lables.
+- `.o-UsageBar__bar__tooltip__percentage` - Used to control the style of the percentage lables.
 
 - `::after` - Is used to make the triangular shape on the bottom (or top) of the tooltips.
+
+### `.o-UsageBar__bar__elements__labels__container`
+
+Used in the compact layout to list all the labels for the elements.
+
+### `.o-UsageBar__bar__elements__label`
+
+The labels for the elements of the bar.
+
+### `.o-UsageBar__bar__elements__label--dot`
+
+The colored dot before the label of the elements.
 
 <br>
 
@@ -151,6 +177,8 @@ $ yarn storybook
 ## Contribution
 
 If you have a suggestion that would make this component better feel free to open a pull request or create an issue for any bug you find.
+
+<br>
 
 ## Licence
 

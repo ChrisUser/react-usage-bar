@@ -1,15 +1,29 @@
-.UsageBar__light {
+/**
+ * Naming conventions
+ * - u: utility
+ * - c: component
+ * - o: object
+*/
+
+.u-UsageBar__error {
+  color: #ff2525;
+  font-weight: bold;
+  letter-spacing: 0.3pt;
+  line-height: 1.5em;
+  text-decoration: underline;
+}
+.u-UsageBar-light {
   --text-color: hsl(0, 0%, 100%);
   --background-tooltip-color: hsl(0, 0%, 13%);
   --background-bar-color: hsl(0, 0%, 93%);
 }
-.UsageBar__dark {
+.u-UsageBar-dark {
   --text-color: hsl(0, 0%, 13%);
   --background-tooltip-color: hsl(0, 0%, 100%);
   --background-bar-color: hsl(0, 0%, 43%);
 }
 
-.UsageBar {
+.c-UsageBar {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -28,7 +42,7 @@
   height: 60pt;
   width: 100%;
 }
-.UsageBar__bar {
+.o-UsageBar__bar {
   position: relative;
   height: 8pt;
   width: 100%;
@@ -41,35 +55,33 @@
   background-color: var(--background-bar-color);
   border-radius: 4pt;
 }
-.UsageBar__bar__element:not(:first-of-type) {
+.o-UsageBar__bar__element:not(:first-of-type) {
   border-left: 1px solid var(--background-bar-color);
 }
-.UsageBar__bar__element:not(:last-of-type) {
+.o-UsageBar__bar__element:not(:last-of-type) {
   border-right: 1px solid var(--background-bar-color);
 }
-.UsageBar__bar__element:first-of-type {
+.o-UsageBar__bar__element:first-of-type {
   border-radius: 4pt 0 0 4pt;
 }
-.UsageBar__bar__element:last-of-type {
+.o-UsageBar__bar__element:last-of-type {
   border-radius: 0 4pt 4pt 0;
 }
-.UsageBar__bar__element:nth-child(odd) > .UsageBar__bar__element--tooltip {
+.o-UsageBar__bar__element:nth-child(odd) > .o-UsageBar__bar__tooltip {
   top: -26pt;
 }
-.UsageBar__bar__element:nth-child(odd)
-  > .UsageBar__bar__element--tooltip::after {
+.o-UsageBar__bar__element:nth-child(odd) > .o-UsageBar__bar__tooltip::after {
   border-top: 5pt solid var(--background-tooltip-color);
   bottom: -4pt;
 }
-.UsageBar__bar__element:nth-child(even) > .UsageBar__bar__element--tooltip {
+.o-UsageBar__bar__element:nth-child(even) > .o-UsageBar__bar__tooltip {
   bottom: -26pt;
 }
-.UsageBar__bar__element:nth-child(even)
-  > .UsageBar__bar__element--tooltip::after {
+.o-UsageBar__bar__element:nth-child(even) > .o-UsageBar__bar__tooltip::after {
   border-bottom: 5pt solid var(--background-tooltip-color);
   top: -4pt;
 }
-.UsageBar__bar__element {
+.o-UsageBar__bar__element {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,7 +90,7 @@
   position: relative;
   height: 100%;
 }
-.UsageBar__bar__element--tooltip {
+.o-UsageBar__bar__tooltip {
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -92,12 +104,12 @@
   font-size: 0.9em;
   line-height: 1;
 }
-.UsageBar__bar__element--tooltip--element__percentage {
+.o-UsageBar__bar__tooltip__percentage {
   opacity: 0.78;
   font-size: 0.9em;
   margin: 0 0 0 3pt;
 }
-.UsageBar__bar__element--tooltip::after {
+.o-UsageBar__bar__tooltip::after {
   z-index: 1;
   content: "";
   width: 0;
@@ -107,13 +119,15 @@
   border-right: 4pt solid transparent;
 }
 
-.Compact__UsageBar {
+/** Compact bar css rules */
+
+.c-UsageBar__compact {
   height: auto !important;
 }
-.UsageBar__bar__compact__bar {
+.o-UsageBar__compact__bar {
   max-width: 500px;
 }
-.UsageBar__bar__elements__labels__container {
+.o-UsageBar__bar__elements__labels__container {
   margin-top: 12pt;
   position: relative;
   width: 100%;
@@ -126,30 +140,20 @@
   gap: 12pt;
   font-size: 0.9em;
 }
-.UsageBar__bar__elements__label {
+.o-UsageBar__bar__elements__label {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
 }
-.UsageBar__bar__elements__label > span,
-.UsageBar__bar__elements__label
-  > .UsageBar__bar__element--tooltip--element__percentage {
+.o-UsageBar__bar__elements__label > span,
+.o-UsageBar__bar__elements__label > .o-UsageBar__bar__tooltip__percentage {
   color: var(--background-tooltip-color);
 }
-
-.UsageBar__bar__elements__label--dot {
+.o-UsageBar__bar__elements__label--dot {
   border-radius: 50%;
   margin-right: 6pt;
   height: 8pt;
   width: 8pt;
-}
-
-.UsageBar__error {
-  color: #ff2525;
-  font-weight: bold;
-  letter-spacing: 0.3pt;
-  line-height: 1.5em;
-  text-decoration: underline;
 }
