@@ -16,6 +16,9 @@ interface Props {
   compactLayout?: boolean
 }
 
+const getPercentageValue = (value: number, total: number): string =>
+  `${((value / total) * 100).toFixed(0)}%`
+
 const UsageBar: React.FC<Props> = ({
   darkMode = false,
   removeLabels = false,
@@ -27,63 +30,56 @@ const UsageBar: React.FC<Props> = ({
   const [usedColors, setUsedColors] = React.useState<string[]>([])
   const [formattedItems, setFormattedItems] = React.useState<Item[]>([])
 
-  const lightColors: string[] = [
-    "#F72585",
-    "#B5179E",
-    "#7209B7",
-    "#480CA8",
-    "#4361EE",
-    "#009688",
-    "#FB8500",
-    "#1B4332",
-    "#795548",
-    "#DC2F02",
-  ]
-  const darkColors: string[] = [
-    "#4CC9F0",
-    "#FFB703",
-    "#74C69D",
-    "#FEE440",
-    "#00F5D4",
-    "#F15BB5",
-    "#BD96EE",
-    "#FF85A1",
-    "#4AD66D",
-    "#BEBFC4",
-  ]
+  const lightColors: string[] = React.useMemo(() => {
+    return [
+      "#F72585",
+      "#B5179E",
+      "#7209B7",
+      "#480CA8",
+      "#4361EE",
+      "#009688",
+      "#FB8500",
+      "#1B4332",
+      "#795548",
+      "#DC2F02",
+    ]
+  }, [])
+  const darkColors: string[] = React.useMemo(() => {
+    return [
+      "#4CC9F0",
+      "#FFB703",
+      "#74C69D",
+      "#FEE440",
+      "#00F5D4",
+      "#F15BB5",
+      "#BD96EE",
+      "#FF85A1",
+      "#4AD66D",
+      "#BEBFC4",
+    ]
+  }, [])
 
+  /**
+   * Checks if the total value is less than the sum of all the elements values.
+   */
   const uncorrectValues = React.useMemo(
-    () =>
+    (): boolean =>
       total <
       items.reduce((tot: number, element: Item) => tot + element.value, 0),
     [items, total]
   )
 
-  const getPercentageValue = React.useCallback(
-    (value: number) => ((value / total) * 100).toFixed(0),
-    [total]
-  )
-
-  React.useEffect(() => {
-    if (!uncorrectValues) {
-      setColors()
-    }
-  }, [items])
-
-  React.useEffect(() => {
-    if (!uncorrectValues) {
-      setFormattedItems(
-        items.map((item: Item, index: number) => {
-          if (item.color) return item
-          else return { ...item, color: usedColors[index] }
-        })
-      )
-    }
-  }, [items, usedColors])
-
+  /**
+   * Push a background color in the usedColors array to provide a color
+   * to elements that don't have it.
+   */
   const setColors = React.useCallback(() => {
     let selectedColors: string[] = []
     const colorsToPickFrom = darkMode ? darkColors : lightColors
+
+    // For each element a random index is generated and then used to pick a value
+    // from the colors array; the selected value is removed by its original array
+    // and it's pushed into the usedColors one.
     for (let i = 0; i < items.length; i++) {
       const randIndex = Math.floor(Math.random() * items.length)
       const color = colorsToPickFrom[randIndex]
@@ -93,7 +89,22 @@ const UsageBar: React.FC<Props> = ({
     setUsedColors(selectedColors)
   }, [items, darkMode])
 
-  const renderUsageBar = React.useMemo(() => {
+  React.useEffect(() => {
+    if (uncorrectValues) return
+    setColors()
+  }, [items])
+
+  React.useEffect(() => {
+    if (uncorrectValues) return
+    setFormattedItems(
+      items.map((item: Item, index: number) => {
+        if (item.color) return item
+        else return { ...item, color: usedColors[index] }
+      })
+    )
+  }, [items, usedColors])
+
+  const renderUsageBar = () => {
     if (compactLayout) {
       return (
         <div
@@ -108,7 +119,7 @@ const UsageBar: React.FC<Props> = ({
                   key={index}
                   className="o-UsageBar__bar__element"
                   style={{
-                    width: `${getPercentageValue(element.value)}%`,
+                    width: getPercentageValue(element.value, total),
                     backgroundColor: element.color,
                   }}
                 />
@@ -127,7 +138,7 @@ const UsageBar: React.FC<Props> = ({
                     <span>{element.name}</span>
                     {showPercentage && (
                       <span className="o-UsageBar__bar__tooltip__percentage">
-                        {getPercentageValue(element.value) + "%"}
+                        {getPercentageValue(element.value, total)}
                       </span>
                     )}
                   </div>
@@ -152,7 +163,7 @@ const UsageBar: React.FC<Props> = ({
                 key={index}
                 className="o-UsageBar__bar__element"
                 style={{
-                  width: `${getPercentageValue(element.value)}%`,
+                  width: getPercentageValue(element.value, total),
                   backgroundColor: element.color,
                 }}
               >
@@ -161,7 +172,7 @@ const UsageBar: React.FC<Props> = ({
                     <span>{element.name}</span>
                     {showPercentage && (
                       <span className="o-UsageBar__bar__tooltip__percentage">
-                        {getPercentageValue(element.value) + "%"}
+                        {getPercentageValue(element.value, total)}
                       </span>
                     )}
                   </div>
@@ -172,7 +183,7 @@ const UsageBar: React.FC<Props> = ({
         </div>
       </div>
     )
-  }, [formattedItems, showPercentage, removeLabels, compactLayout])
+  }
 
   if (uncorrectValues)
     return (
@@ -180,7 +191,7 @@ const UsageBar: React.FC<Props> = ({
         ERROR: Elements values exceed the total.
       </span>
     )
-  return renderUsageBar
+  return renderUsageBar()
 }
 
 export default UsageBar

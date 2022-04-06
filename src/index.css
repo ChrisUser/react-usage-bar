@@ -20,7 +20,7 @@
 .u-UsageBar-dark {
   --text-color: hsl(0, 0%, 13%);
   --background-tooltip-color: hsl(0, 0%, 100%);
-  --background-bar-color: hsl(0, 0%, 43%);
+  --background-bar-color: hsl(0, 0%, 30%);
 }
 
 .c-UsageBar {
