@@ -27,7 +27,6 @@ const UsageBar: React.FC<Props> = ({
   total,
   items,
 }) => {
-  const [usedColors, setUsedColors] = React.useState<string[]>([])
   const [formattedItems, setFormattedItems] = React.useState<Item[]>([])
 
   const lightColors: string[] = React.useMemo(() => {
@@ -70,41 +69,38 @@ const UsageBar: React.FC<Props> = ({
   )
 
   /**
-   * Push a background color in the usedColors array to provide a color
-   * to elements that don't have it.
+   * Formats the items prop array providing a color to
+   * elements without a defined one
    */
-  const setColors = React.useCallback(() => {
+  const formatItemsArray = React.useCallback(() => {
     let selectedColors: string[] = []
     const colorsToPickFrom = darkMode ? darkColors : lightColors
 
     // For each element a random index is generated and then used to pick a value
-    // from the colors array; the selected value is removed by its original array
-    // and it's pushed into the usedColors one.
+    // from the colorsToPickFrom array; the selected value is removed by its original array
+    // and it's pushed into the selectedColors one.
     for (let i = 0; i < items.length; i++) {
-      const randIndex = Math.floor(Math.random() * items.length)
+      const randIndex = Math.floor(Math.random() * colorsToPickFrom.length)
       const color = colorsToPickFrom[randIndex]
       selectedColors.push(color)
       colorsToPickFrom.splice(randIndex, 1)
     }
-    setUsedColors(selectedColors)
+
+    // Each element from the items array is formatted correctly
+    // with a defined and valid color property.
+    setFormattedItems(
+      items.map((item: Item, index: number) => {
+        return !!item.color ? item : { ...item, color: selectedColors[index] }
+      })
+    )
   }, [items, darkMode])
 
   React.useEffect(() => {
     if (uncorrectValues) return
-    setColors()
+    formatItemsArray()
   }, [items])
 
-  React.useEffect(() => {
-    if (uncorrectValues) return
-    setFormattedItems(
-      items.map((item: Item, index: number) => {
-        if (item.color) return item
-        else return { ...item, color: usedColors[index] }
-      })
-    )
-  }, [items, usedColors])
-
-  const renderUsageBar = () => {
+  const renderUsageBar = React.useMemo(() => {
     if (compactLayout) {
       return (
         <div
@@ -183,7 +179,7 @@ const UsageBar: React.FC<Props> = ({
         </div>
       </div>
     )
-  }
+  }, [formattedItems])
 
   if (uncorrectValues)
     return (
@@ -191,7 +187,7 @@ const UsageBar: React.FC<Props> = ({
         ERROR: Elements values exceed the total.
       </span>
     )
-  return renderUsageBar()
+  return renderUsageBar
 }
 
 export default UsageBar
