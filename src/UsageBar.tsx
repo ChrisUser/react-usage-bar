@@ -29,34 +29,30 @@ const UsageBar: React.FC<Props> = ({
 }) => {
   const [formattedItems, setFormattedItems] = React.useState<Item[]>([])
 
-  const lightColors: string[] = React.useMemo(() => {
-    return [
-      "#F72585",
-      "#B5179E",
-      "#7209B7",
-      "#480CA8",
-      "#4361EE",
-      "#009688",
-      "#FB8500",
-      "#1B4332",
-      "#795548",
-      "#DC2F02",
-    ]
-  }, [])
-  const darkColors: string[] = React.useMemo(() => {
-    return [
-      "#4CC9F0",
-      "#FFB703",
-      "#74C69D",
-      "#FEE440",
-      "#00F5D4",
-      "#F15BB5",
-      "#BD96EE",
-      "#FF85A1",
-      "#4AD66D",
-      "#BEBFC4",
-    ]
-  }, [])
+  const lightColors: string[] = [
+    "#F72585",
+    "#B5179E",
+    "#7209B7",
+    "#480CA8",
+    "#4361EE",
+    "#009688",
+    "#FB8500",
+    "#1B4332",
+    "#795548",
+    "#DC2F02",
+  ]
+  const darkColors: string[] = [
+    "#4CC9F0",
+    "#FFB703",
+    "#74C69D",
+    "#FEE440",
+    "#00F5D4",
+    "#F15BB5",
+    "#BD96EE",
+    "#FF85A1",
+    "#4AD66D",
+    "#BEBFC4",
+  ]
 
   /**
    * Checks if the total value is less than the sum of all the elements values.
@@ -93,7 +89,7 @@ const UsageBar: React.FC<Props> = ({
         return item.color ? item : { ...item, color: selectedColors[index] }
       })
     )
-  }, [items, darkMode, darkColors, lightColors])
+  }, [items, darkMode])
 
   React.useEffect(() => {
     if (uncorrectValues) return
@@ -181,7 +177,6 @@ const UsageBar: React.FC<Props> = ({
     )
   }, [
     formattedItems,
-    items,
     total,
     darkMode,
     showPercentage,
