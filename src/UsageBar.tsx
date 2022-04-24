@@ -28,7 +28,6 @@ const UsageBar: React.FC<Props> = ({
   items,
 }) => {
   const [formattedItems, setFormattedItems] = React.useState<Item[]>([])
-  const [propsUpdate, setPropsUpdate] = React.useState(false)
 
   const lightColors: string[] = React.useMemo(() => {
     return [
@@ -96,21 +95,12 @@ const UsageBar: React.FC<Props> = ({
     )
   }, [items, darkMode, darkColors, lightColors])
 
-  /**
-   * Updates the flag to signal that a prop was mutated and the
-   * component needs a re-render.
-   */
-  React.useEffect(() => {
-    setPropsUpdate((flag) => !flag)
-  }, [items, total, darkMode, showPercentage, compactLayout, removeLabels])
-
   React.useEffect(() => {
     if (uncorrectValues) return
     formatItemsArray()
   }, [items, uncorrectValues, formatItemsArray])
 
   const renderUsageBar = React.useMemo(() => {
-    console.log("test")
     if (compactLayout) {
       return (
         <div
@@ -189,7 +179,15 @@ const UsageBar: React.FC<Props> = ({
         </div>
       </div>
     )
-  }, [formattedItems, propsUpdate])
+  }, [
+    formattedItems,
+    items,
+    total,
+    darkMode,
+    showPercentage,
+    compactLayout,
+    removeLabels,
+  ])
 
   if (uncorrectValues)
     return (
