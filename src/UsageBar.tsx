@@ -28,6 +28,7 @@ const UsageBar: React.FC<Props> = ({
   items,
 }) => {
   const [formattedItems, setFormattedItems] = React.useState<Item[]>([])
+  const [propsUpdate, setPropsUpdate] = React.useState(false)
 
   const lightColors: string[] = React.useMemo(() => {
     return [
@@ -70,10 +71,10 @@ const UsageBar: React.FC<Props> = ({
 
   /**
    * Formats the items prop array providing a color to
-   * elements without a defined one
+   * elements without a defined one.
    */
   const formatItemsArray = React.useCallback(() => {
-    let selectedColors: string[] = []
+    const selectedColors: string[] = []
     const colorsToPickFrom = darkMode ? darkColors : lightColors
 
     // For each element a random index is generated and then used to pick a value
@@ -90,17 +91,26 @@ const UsageBar: React.FC<Props> = ({
     // with a defined and valid color property.
     setFormattedItems(
       items.map((item: Item, index: number) => {
-        return !!item.color ? item : { ...item, color: selectedColors[index] }
+        return item.color ? item : { ...item, color: selectedColors[index] }
       })
     )
-  }, [items, darkMode])
+  }, [items, darkMode, darkColors, lightColors])
+
+  /**
+   * Updates the flag to signal that a prop was mutated and the
+   * component needs a re-render.
+   */
+  React.useEffect(() => {
+    setPropsUpdate((flag) => !flag)
+  }, [items, total, darkMode, showPercentage, compactLayout, removeLabels])
 
   React.useEffect(() => {
     if (uncorrectValues) return
     formatItemsArray()
-  }, [items])
+  }, [items, uncorrectValues, formatItemsArray])
 
   const renderUsageBar = React.useMemo(() => {
+    console.log("test")
     if (compactLayout) {
       return (
         <div
@@ -179,7 +189,7 @@ const UsageBar: React.FC<Props> = ({
         </div>
       </div>
     )
-  }, [formattedItems])
+  }, [formattedItems, propsUpdate])
 
   if (uncorrectValues)
     return (
