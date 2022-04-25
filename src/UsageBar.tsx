@@ -96,7 +96,7 @@ const UsageBar: React.FC<Props> = ({
     formatItemsArray()
   }, [items, uncorrectValues, formatItemsArray])
 
-  const renderUsageBar = React.useMemo(() => {
+  const renderUsageBar = () => {
     if (compactLayout) {
       return (
         <div
@@ -175,14 +175,7 @@ const UsageBar: React.FC<Props> = ({
         </div>
       </div>
     )
-  }, [
-    formattedItems,
-    total,
-    darkMode,
-    showPercentage,
-    compactLayout,
-    removeLabels,
-  ])
+  }
 
   if (uncorrectValues)
     return (
@@ -190,7 +183,7 @@ const UsageBar: React.FC<Props> = ({
         ERROR: Elements values exceed the total.
       </span>
     )
-  return renderUsageBar
+  return formattedItems.length > 0 ? renderUsageBar() : null
 }
 
 export default UsageBar
