@@ -17,28 +17,28 @@ interface Props {
 }
 
 const lightColors: string[] = [
-  "#F72585",
-  "#B5179E",
-  "#7209B7",
-  "#480CA8",
-  "#4361EE",
-  "#009688",
-  "#FB8500",
-  "#1B4332",
-  "#795548",
-  "#DC2F02",
+  "#F72585", // Flickr Pink
+  "#B5179E", // Byzantine (Purple)
+  "#7C0FC4", // French Violet
+  "#4900BD", // Medium Blue
+  "#3053F1", // Blue RYB
+  "#009688", // Pine Green
+  "#DF9541", // Carrot Orange
+  "#008049", // Sea Green
+  "#80452E", // Bole (Light brown)
+  "#D32A00", // Rosso Corsa (Red)
 ]
 const darkColors: string[] = [
-  "#4CC9F0",
-  "#FFB703",
-  "#74C69D",
-  "#FEE440",
-  "#00F5D4",
-  "#F15BB5",
-  "#BD96EE",
-  "#FF85A1",
-  "#4AD66D",
-  "#BEBFC4",
+  "#4BBCDF", // Cyan Process
+  "#E8BB4A", // Maximum Yellow Red
+  "#9A32DF", // Purple X 11
+  "#E76AA2", // China Pink
+  "#4361EE", // Ultramarine Blue
+  "#439990", // Viridian Green
+  "#B583F1", // Lavender Floral
+  "#EC8C1D", // Carrot Orange
+  "#47CE69", // Emerald
+  "#989BAC", // Manatee (Blue/Gray)
 ]
 
 const getPercentageValue = (value: number, total: number): string =>
