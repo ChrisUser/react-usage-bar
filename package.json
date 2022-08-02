@@ -19,6 +19,9 @@
     "storybook": "start-storybook",
     "build-storybook": "build-storybook -c .storybook -o docs-build .out"
   },
+  "release": {
+    "branches": ["main"]
+  },
   "keywords": [
     "react",
     "usage bar",

@@ -28,4 +28,4 @@ jobs:
           npm install --force
           npm run build --if-present
       - name: Semantic release
-        run: npx semantic-release --branches next
+        run: npx semantic-release
