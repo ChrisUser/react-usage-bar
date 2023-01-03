@@ -75,6 +75,7 @@
     "react-dom": "^17"
   },
   "resolutions": {
+    "json5": "2.2.2",
     "minimist": "1.2.6",
     "glob-parent": "6.0.1",
     "webpack": "4.41.0",
