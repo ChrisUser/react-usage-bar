@@ -24,6 +24,15 @@ yarn add react-usage-bar
 
 <br>
 
+## Compatibility table
+
+| Package v | Node       |
+| --------- | ---------- |
+| <= 1.1.18 | <= 16.14.x |
+| > 1.1.19  | 18.x.x     |
+
+<br>
+
 ## 🔧 Usage
 
 Live **demo** at: [https://chrisuser.github.io/react-usage-bar/docs/](https://chrisuser.github.io/react-usage-bar/docs/)
