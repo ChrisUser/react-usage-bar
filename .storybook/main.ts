@@ -1,10 +1,6 @@
 module.exports = {
   stories: ["../src/**/*.stories.tsx"],
-  addons: [
-    "@storybook/addon-docs",
-    "@storybook/addon-viewport",
-    "@storybook/addon-a11y",
-  ],
+  addons: ["@storybook/addon-docs", "@storybook/addon-viewport", "@storybook/addon-a11y"],
   typescript: {
     reactDocgen: "react-docgen-typescript",
     reactDocgenTypescriptOptions: {
@@ -25,8 +21,15 @@ module.exports = {
         suppressImplicitAnyIndexErrors: true,
         noUnusedLocals: false,
         noUnusedParameters: true,
-        esModuleInterop: true,
-      },
-    },
+        esModuleInterop: true
+      }
+    }
   },
-}
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {}
+  },
+  docs: {
+    autodocs: true
+  }
+};
