@@ -57,11 +57,9 @@ jobs:
           yarn install
       - name: Build typescript
         if: ${{ env.VERSION != env.PUBLISHED_VERSION }}
-        run: |
-          yarn build
-      - name: Test publish on NPM
-        run: npm publish --dry-run
-        uses: step-security/wait-for-secrets@v1
+        run: yarn build
+      - run: npm publish --dry-run
+      - uses: step-security/wait-for-secrets@v1
         id: wait-for-secrets
         with:
           secrets: |
