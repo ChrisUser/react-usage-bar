@@ -42,6 +42,13 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           check-latest: true
+      - uses: step-security/wait-for-secrets@v1
+        id: wait-for-secrets
+        with:
+          secrets: |
+            OTP: 
+              name: 'OTP to publish package'
+              description: 'OTP from authenticator app'
       - name: Set NPM
         run: |
           echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
@@ -61,13 +68,6 @@ jobs:
           yarn build
       - name: Publish on NPM
         if: ${{ env.VERSION != env.PUBLISHED_VERSION }}
-        - uses: step-security/wait-for-secrets@v1
-          id: wait-for-secrets
-          with:
-            secrets: |
-              OTP: 
-                name: 'OTP to publish package'
-                description: 'OTP from authenticator app'
         run: |
           git tag v${VERSION} ${GITHUB_SHA} || exit 0
           git push origin v${VERSION}
