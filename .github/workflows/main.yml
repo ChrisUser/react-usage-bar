@@ -42,6 +42,13 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           check-latest: true
+      - uses: mmarchini-oss/npm-otp-publish@v0
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          npm_token: ${{ secrets.NPM_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          version_url: https://github.com/${{ github.repository }}/releases/tag/${{ steps.release.outputs.tag_name }}
+          github_actor: ${{ github.actor }}
       - name: Set NPM
         run: |
           echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
