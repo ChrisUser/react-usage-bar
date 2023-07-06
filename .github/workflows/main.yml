@@ -28,8 +28,8 @@ jobs:
         run: | # Install npm packages and build the src files
           npm install --force
           npm run build --if-present
-      - name: Semantic release
-        run: npx semantic-release
+      # - name: Semantic release
+      #  run: npx semantic-release
 
   tag-and-npm-publish:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
