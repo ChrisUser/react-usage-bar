@@ -1,20 +1,21 @@
-name: Semantic release
+name: Release workflow
 
-on:
-  push:
-    branches: [main]
+on: [push]
 
 env:
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NPM_PACKAGE_NAME: 'react-usage-bar'
+  VERSION: ''
+  PUBLISHED_VERSION: ''
 
 jobs:
-  publish:
+  build-and-test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [18.x] # 16.x removed since v1.1.19
+        node-version: [18.x] # 16.x removed since react-usage-bar v1.1.19
 
     steps:
       - uses: actions/checkout@v3
@@ -29,3 +30,47 @@ jobs:
           npm run build --if-present
       - name: Semantic release
         run: npx semantic-release
+
+  tag-and-npm-publish:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    needs: [build-and-test]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v2.5.1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          check-latest: true
+      - name: Set NPM
+        run: |
+          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+      - name: Set version
+        run: |
+          echo VERSION=$(npm pkg get version | sed 's/"//g') >> $GITHUB_ENV
+          echo PUBLISHED_VERSION=$(npm show $NPM_PACKAGE_NAME version) >> $GITHUB_ENV
+          echo "VERSION ${VERSION}"
+          echo "NPM_PACKAGE_NAME ${NPM_PACKAGE_NAME}"
+      - name: Install dependecies
+        if: ${{ env.VERSION != env.PUBLISHED_VERSION }}
+        run: |
+          yarn install
+      - name: Build typescript
+        if: ${{ env.VERSION != env.PUBLISHED_VERSION }}
+        run: |
+          yarn build
+      - name: Publish on NPM
+        if: ${{ env.VERSION != env.PUBLISHED_VERSION }}
+        run: |
+          git tag v${VERSION} ${GITHUB_SHA} || exit 0
+          git push origin v${VERSION}
+          npm publish
+      - name: Check loaded and NPM version
+        if: ${{ env.VERSION == env.PUBLISHED_VERSION }}
+        run: |
+          echo "The loaded version is the same on npm. 0 new uploaded versions."
+          exit 0;
+      - name: Remove NPM token
+        if: always()
+        run: |
+          rm .npmrc
