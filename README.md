@@ -35,7 +35,7 @@ yarn add react-usage-bar
 
 ## 🔧 Usage
 
-Live **demo** at: [https://chrisuser.github.io/react-usage-bar/docs/](https://chrisuser.github.io/react-usage-bar/docs/)
+Live **demo** at: [https://chrisuser.github.io/react-usage-bar/](https://chrisuser.github.io/react-usage-bar/)
 
 The usage bar needs to receive an array of items. In order to display all the values correctly every item should follow this interface:
 
