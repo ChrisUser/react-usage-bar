@@ -42,13 +42,13 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           check-latest: true
-      - uses: mmarchini-oss/npm-otp-publish@v0
-        if: ${{ steps.release.outputs.release_created }}
+      - uses: step-security/wait-for-secrets@v1
+        id: wait-for-secrets
         with:
-          npm_token: ${{ secrets.NPM_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          version_url: https://github.com/${{ github.repository }}/releases/tag/${{ steps.release.outputs.tag_name }}
-          github_actor: ${{ github.actor }}
+          secrets: |
+            OTP: 
+              name: 'OTP to publish package'
+              description: 'OTP from authenticator app'
       - name: Set NPM
         run: |
           echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
@@ -71,7 +71,7 @@ jobs:
         run: |
           git tag v${VERSION} ${GITHUB_SHA} || exit 0
           git push origin v${VERSION}
-          npm publish
+          npm publish --otp ${{ steps.wait-for-secrets.outputs.OTP }}
       - name: Check loaded and NPM version
         if: ${{ env.VERSION == env.PUBLISHED_VERSION }}
         run: |
