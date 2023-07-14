@@ -8,6 +8,7 @@ env:
   NPM_PACKAGE_NAME: 'react-usage-bar'
   VERSION: ''
   PUBLISHED_VERSION: ''
+  NODE_VERSION: '18.x'
 
 jobs:
   build-and-test:
@@ -41,6 +42,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+        with:
+          token: ${{ env.GITHUB_TOKEN }}
       - uses: actions/setup-node@v2.5.1
         with:
           node-version: ${{ env.NODE_VERSION }}
