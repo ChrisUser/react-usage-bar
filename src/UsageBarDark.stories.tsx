@@ -31,32 +31,34 @@ const items = [
   },
 ]
 
+const mainDarkModeContainerStyle = { backgroundColor: "#212121", padding: 16 }
+
 export const darkMode = () => (
-  <div style={{ backgroundColor: "#212121" }}>
+  <div style={mainDarkModeContainerStyle}>
     <UsageBar darkMode items={items} total={100} />
   </div>
 )
 
 export const darkModeWithoutLabels = () => (
-  <div style={{ backgroundColor: "#212121" }}>
+  <div style={mainDarkModeContainerStyle}>
     <UsageBar removeLabels darkMode items={items} total={100} />
   </div>
 )
 
 export const darkModeWithPercentages = () => (
-  <div style={{ backgroundColor: "#212121" }}>
+  <div style={mainDarkModeContainerStyle}>
     <UsageBar showPercentage darkMode items={items} total={100} />
   </div>
 )
 
 export const darkModeCompact = () => (
-  <div style={{ backgroundColor: "#212121" }}>
+  <div style={mainDarkModeContainerStyle}>
     <UsageBar showPercentage compactLayout darkMode items={items} total={100} />
   </div>
 )
 
 export const darkModeCompactWithoutLabels = () => (
-  <div style={{ backgroundColor: "#212121" }}>
+  <div style={mainDarkModeContainerStyle}>
     <UsageBar removeLabels compactLayout darkMode items={items} total={100} />
   </div>
 )
@@ -64,7 +66,7 @@ export const darkModeCompactWithoutLabels = () => (
 export const error = () => (
   <>
     <p>If sum of values exceeds total.</p>
-    <div style={{ backgroundColor: "#212121" }}>
+    <div style={mainDarkModeContainerStyle}>
       <UsageBar items={items} total={50} />
     </div>
   </>
