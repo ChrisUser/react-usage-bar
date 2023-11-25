@@ -1,10 +1,10 @@
 import * as React from "react"
 import UsageBar from "./UsageBar"
 
-export default { 
+export default {
   title: "Usage Bar",
   component: UsageBar,
-  parameters: {}
+  parameters: {},
 }
 
 const items = [
@@ -31,15 +31,37 @@ const items = [
   },
 ]
 
-export const lightMode = () => <UsageBar items={items} total={100} />
+export const lightMode = () => (
+  <UsageBar showFallbackColors items={items} total={100} />
+)
 
-export const withoutLabels = () => <UsageBar removeLabels items={items} total={100} />
+export const withoutLabels = () => (
+  <UsageBar showLabels={false} showFallbackColors items={items} total={100} />
+)
 
-export const withPercentages = () => <UsageBar showPercentage items={items} total={100} />
+export const withPercentages = () => (
+  <UsageBar showPercentage showFallbackColors items={items} total={100} />
+)
 
-export const compactLayout = () => <UsageBar showPercentage compactLayout items={items} total={100} />
+export const compactLayout = () => (
+  <UsageBar
+    showPercentage
+    showFallbackColors
+    compactLayout
+    items={items}
+    total={100}
+  />
+)
 
-export const compactLayoutWithoutLabels = () => <UsageBar removeLabels compactLayout items={items} total={100} />
+export const compactLayoutWithoutLabels = () => (
+  <UsageBar
+    showLabels={false}
+    showFallbackColors
+    compactLayout
+    items={items}
+    total={100}
+  />
+)
 
 export const error = () => (
   <>

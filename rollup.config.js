@@ -1,46 +1,45 @@
-import typescript from 'rollup-plugin-typescript2'
-import commonjs from 'rollup-plugin-commonjs'
-import external from 'rollup-plugin-peer-deps-external'
-import resolve from 'rollup-plugin-node-resolve'
-import postcss from 'rollup-plugin-postcss'
-import { terser } from 'rollup-plugin-terser'
+import typescript from "rollup-plugin-typescript2"
+import commonjs from "rollup-plugin-commonjs"
+import external from "rollup-plugin-peer-deps-external"
+import resolve from "rollup-plugin-node-resolve"
+import postcss from "rollup-plugin-postcss"
+import { terser } from "rollup-plugin-terser"
 
-import pkg from './package.json' assert { type: "json" }
+import pkg from "./package.json" assert { type: "json" }
 
 export default {
-  input: 'src/index.ts',
+  input: "src/index.ts",
   output: [
     {
       file: pkg.main,
-      format: 'cjs',
-      exports: 'named',
-      sourcemap: true
-    }
+      format: "cjs",
+      exports: "named",
+      sourcemap: true,
+    },
   ],
   plugins: [
     resolve(),
     postcss({
-      extensions: ['.css'],
-      extract: true
+      extensions: [".css"],
+      extract: true,
     }),
     external(),
     typescript({
-      rollupCommonJSResolveHack: true,
-      exclude: ['**/__tests__/**', '**/*.stories.tsx'],
-      clean: true
+      exclude: ["**/__tests__/**", "**/*.stories.tsx"],
+      clean: true,
     }),
     terser(),
     commonjs({
-      include: ['node_modules/**'],
+      include: ["node_modules/**"],
       namedExports: {
-        'node_modules/react/react.js': [
-          'Children',
-          'Component',
-          'PropTypes',
-          'createElement'
+        "node_modules/react/react.js": [
+          "Children",
+          "Component",
+          "PropTypes",
+          "createElement",
         ],
-        'node_modules/react-dom/index.js': ['render']
-      }
-    })
-  ]
+        "node_modules/react-dom/index.js": ["render"],
+      },
+    }),
+  ],
 }
