@@ -31,7 +31,9 @@ const items = [
   },
 ]
 
-export const lightMode = () => <UsageBar items={items} total={100} />
+export const lightMode = () => (
+  <UsageBar showFallbackColors items={items} total={100} />
+)
 
 export const withoutLabels = () => (
   <UsageBar showLabels={false} showFallbackColors items={items} total={100} />
@@ -42,11 +44,23 @@ export const withPercentages = () => (
 )
 
 export const compactLayout = () => (
-  <UsageBar showPercentage compactLayout items={items} total={100} />
+  <UsageBar
+    showPercentage
+    showFallbackColors
+    compactLayout
+    items={items}
+    total={100}
+  />
 )
 
 export const compactLayoutWithoutLabels = () => (
-  <UsageBar showLabels={false} compactLayout items={items} total={100} />
+  <UsageBar
+    showLabels={false}
+    showFallbackColors
+    compactLayout
+    items={items}
+    total={100}
+  />
 )
 
 export const error = () => (

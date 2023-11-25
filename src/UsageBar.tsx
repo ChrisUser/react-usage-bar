@@ -4,6 +4,7 @@ import "./index.css"
 interface Item {
   color?: string
   className?: string
+  dotClassName?: string
   value: number
   name: string
 }
@@ -21,7 +22,6 @@ interface Props {
   usageBarContainerClassName?: string
   usageBarClassName?: string
   tooltipClassName?: string
-  dotElementClassName?: string
   errorMessageClassName?: string
 }
 
@@ -79,11 +79,10 @@ const UsageBar: React.FC<Props> = ({
   showFallbackColors = false,
   total,
   items,
-  errorMessage = "ERROR: Total elements values exceed 100%.",
+  errorMessage = "Error: Total elements values exceed 100%.",
   usageBarContainerClassName,
   usageBarClassName,
   tooltipClassName,
-  dotElementClassName,
   errorMessageClassName,
 }) => {
   /**
@@ -167,8 +166,8 @@ const UsageBar: React.FC<Props> = ({
               return (
                 <div key={index} className="o-UsageBar__bar__elements__label">
                   <div
-                    className={`o-UsageBar__bar__elements__label--dot ${appendCustomClass(
-                      dotElementClassName
+                    className={`o-UsageBar__bar__elements__label--dot${appendCustomClass(
+                      element.dotClassName
                     )}`}
                     style={color ? { backgroundColor: color } : {}}
                   />

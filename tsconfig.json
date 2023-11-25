@@ -5,6 +5,8 @@
     "jsx": "react",
     "declaration": true,
     "declarationDir": "./build",
-    "strict": true
+    "strict": true,
+    "target": "ES6",
+    "moduleResolution": "Node"
   }
 }

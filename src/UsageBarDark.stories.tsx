@@ -35,25 +35,44 @@ const mainDarkModeContainerStyle = { backgroundColor: "#212121", padding: 16 }
 
 export const darkMode = () => (
   <div style={mainDarkModeContainerStyle}>
-    <UsageBar darkMode items={items} total={100} />
+    <UsageBar darkMode showFallbackColors items={items} total={100} />
   </div>
 )
 
 export const darkModeWithoutLabels = () => (
   <div style={mainDarkModeContainerStyle}>
-    <UsageBar showLabels={false} darkMode items={items} total={100} />
+    <UsageBar
+      showLabels={false}
+      showFallbackColors
+      darkMode
+      items={items}
+      total={100}
+    />
   </div>
 )
 
 export const darkModeWithPercentages = () => (
   <div style={mainDarkModeContainerStyle}>
-    <UsageBar showPercentage darkMode items={items} total={100} />
+    <UsageBar
+      showPercentage
+      showFallbackColors
+      darkMode
+      items={items}
+      total={100}
+    />
   </div>
 )
 
 export const darkModeCompact = () => (
   <div style={mainDarkModeContainerStyle}>
-    <UsageBar showPercentage compactLayout darkMode items={items} total={100} />
+    <UsageBar
+      showPercentage
+      showFallbackColors
+      compactLayout
+      darkMode
+      items={items}
+      total={100}
+    />
   </div>
 )
 
@@ -62,6 +81,7 @@ export const darkModeCompactWithoutLabels = () => (
     <UsageBar
       showLabels={false}
       compactLayout
+      showFallbackColors
       darkMode
       items={items}
       total={100}
