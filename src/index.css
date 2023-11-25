@@ -103,7 +103,7 @@
 }
 .o-UsageBar__bar__tooltip__percentage {
   opacity: 0.78;
-  font-size: 0.9em;
+  font-size: 0.85em;
   margin: 0 0 0 3pt;
 }
 .o-UsageBar__bar__tooltip::after {
@@ -128,7 +128,6 @@
 .o-UsageBar__bar__elements__label {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
   flex-direction: row;
 }
 .o-UsageBar__bar__elements__labels__container {
@@ -136,12 +135,15 @@
   position: relative;
   width: 100%;
   max-width: 480px;
+  align-items: center;
   flex-wrap: wrap;
   gap: 12pt;
   font-size: 0.9em;
 }
 .o-UsageBar__bar__elements__label {
+  align-items: flex-end;
   flex-wrap: nowrap;
+  line-height: 1;
 }
 .o-UsageBar__bar__elements__label > span,
 .o-UsageBar__bar__elements__label > .o-UsageBar__bar__tooltip__percentage {
@@ -152,4 +154,5 @@
   margin-right: 6pt;
   height: 8pt;
   width: 8pt;
+  border: 1px solid var(--background-bar-color);
 }

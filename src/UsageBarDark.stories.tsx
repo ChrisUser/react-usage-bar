@@ -41,7 +41,7 @@ export const darkMode = () => (
 
 export const darkModeWithoutLabels = () => (
   <div style={mainDarkModeContainerStyle}>
-    <UsageBar removeLabels darkMode items={items} total={100} />
+    <UsageBar showLabels={false} darkMode items={items} total={100} />
   </div>
 )
 
@@ -59,7 +59,13 @@ export const darkModeCompact = () => (
 
 export const darkModeCompactWithoutLabels = () => (
   <div style={mainDarkModeContainerStyle}>
-    <UsageBar removeLabels compactLayout darkMode items={items} total={100} />
+    <UsageBar
+      showLabels={false}
+      compactLayout
+      darkMode
+      items={items}
+      total={100}
+    />
   </div>
 )
 
