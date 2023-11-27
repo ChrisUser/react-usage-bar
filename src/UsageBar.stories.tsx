@@ -31,36 +31,49 @@ const items = [
   },
 ]
 
+const compactContainerStyle = { maxWidth: 500, margin: "0 auto" }
+const normalContainerStyle = { margin: 16 }
+
 export const lightMode = () => (
-  <UsageBar showFallbackColors items={items} total={100} />
+  <div style={normalContainerStyle}>
+    <UsageBar showFallbackColors items={items} total={100} />
+  </div>
 )
 
 export const withoutLabels = () => (
-  <UsageBar showLabels={false} showFallbackColors items={items} total={100} />
+  <div style={normalContainerStyle}>
+    <UsageBar showLabels={false} showFallbackColors items={items} total={100} />
+  </div>
 )
 
 export const withPercentages = () => (
-  <UsageBar showPercentage showFallbackColors items={items} total={100} />
+  <div style={normalContainerStyle}>
+    <UsageBar showPercentage showFallbackColors items={items} total={100} />
+  </div>
 )
 
 export const compactLayout = () => (
-  <UsageBar
-    showPercentage
-    showFallbackColors
-    compactLayout
-    items={items}
-    total={100}
-  />
+  <div style={compactContainerStyle}>
+    <UsageBar
+      showPercentage
+      showFallbackColors
+      compactLayout
+      items={items}
+      total={100}
+    />
+  </div>
 )
 
 export const compactLayoutWithoutLabels = () => (
-  <UsageBar
-    showLabels={false}
-    showFallbackColors
-    compactLayout
-    items={items}
-    total={100}
-  />
+  <div style={compactContainerStyle}>
+    <UsageBar
+      showLabels={false}
+      showFallbackColors
+      compactLayout
+      items={items}
+      total={100}
+    />
+  </div>
 )
 
 export const error = () => (

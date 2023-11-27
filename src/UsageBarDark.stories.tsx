@@ -31,7 +31,11 @@ const items = [
   },
 ]
 
-const mainDarkModeContainerStyle = { backgroundColor: "#212121", padding: 16 }
+const mainDarkModeContainerStyle = {
+  backgroundColor: "#212121",
+  padding: 48,
+}
+const compactContainerStyle = { maxWidth: 500, margin: "0 auto" }
 
 export const darkMode = () => (
   <div style={mainDarkModeContainerStyle}>
@@ -64,7 +68,7 @@ export const darkModeWithPercentages = () => (
 )
 
 export const darkModeCompact = () => (
-  <div style={mainDarkModeContainerStyle}>
+  <div style={{ ...mainDarkModeContainerStyle, ...compactContainerStyle }}>
     <UsageBar
       showPercentage
       showFallbackColors
@@ -77,7 +81,7 @@ export const darkModeCompact = () => (
 )
 
 export const darkModeCompactWithoutLabels = () => (
-  <div style={mainDarkModeContainerStyle}>
+  <div style={{ ...mainDarkModeContainerStyle, ...compactContainerStyle }}>
     <UsageBar
       showLabels={false}
       compactLayout

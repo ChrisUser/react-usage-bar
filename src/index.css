@@ -36,7 +36,6 @@
   color: inherit;
   font-size: 1em;
   position: relative;
-  height: 60pt;
   width: 100%;
 }
 .o-UsageBar__bar {
@@ -118,12 +117,6 @@
 
 /** Compact bar css rules */
 
-.c-UsageBar__compact {
-  height: auto !important;
-}
-.o-UsageBar__compact__bar {
-  max-width: 500px;
-}
 .o-UsageBar__bar__elements__labels__container,
 .o-UsageBar__bar__elements__label {
   display: flex;
@@ -134,7 +127,6 @@
   margin-top: 12pt;
   position: relative;
   width: 100%;
-  max-width: 480px;
   align-items: center;
   flex-wrap: wrap;
   gap: 12pt;

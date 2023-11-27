@@ -141,7 +141,7 @@ const UsageBar: React.FC<Props> = ({
   if (compactLayout) {
     return (
       <div
-        className={`c-UsageBar c-UsageBar__compact ${
+        className={`c-UsageBar ${
           darkMode ? "u-UsageBar-dark" : "u-UsageBar-light"
         }${appendCustomClass(usageBarContainerClassName)}`}
       >
