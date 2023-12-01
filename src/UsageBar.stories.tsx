@@ -32,7 +32,7 @@ const items = [
 ]
 
 const compactContainerStyle = { maxWidth: 500, margin: "0 auto" }
-const normalContainerStyle = { margin: 16 }
+const normalContainerStyle = { margin: 24 }
 
 export const lightMode = () => (
   <div style={normalContainerStyle}>
