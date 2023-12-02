@@ -67,7 +67,7 @@ In case you are using the **compact layout** and have not specified a `color` va
 ```javascript
 import * from 'react'
 import UsageBar from 'react-usage-bar'
-import "react-usage-bar/build/index.css"
+import "react-usage-bar/dist/index.css"
 
 const App = () => {
 
