@@ -2,7 +2,7 @@
     "name": "react-usage-bar",
     "version": "1.2.1",
     "description": "Usage bar, graphic component for React",
-    "main": "dist/main.mjs",
+    "main": "dist/main.js",
     "types": "dist/main.d.ts",
     "files": [
         "dist"
