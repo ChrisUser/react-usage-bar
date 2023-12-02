@@ -182,11 +182,11 @@ The class that contains all the colors for the light mode.
 
 The class that contains all the colors for the dark mode.
 
-### `.c-UsageBar` | `.c-UsageBar__compact`
+### `.c-UsageBar`
 
 The main div of the component.
 
-### `.o-UsageBar__bar` | `.o-UsageBar__compact__bar`
+### `.o-UsageBar__bar`
 
 The actual bar of the component.
 

@@ -1,35 +1,22 @@
-module.exports = {
-  stories: ["../src/**/*.stories.tsx"],
-  addons: ["@storybook/addon-docs", "@storybook/addon-viewport", "@storybook/addon-a11y"],
-  typescript: {
-    reactDocgen: "react-docgen-typescript",
-    reactDocgenTypescriptOptions: {
-      compilerOptions: {
-        outDir: "build",
-        module: "esnext",
-        target: "esnext",
-        lib: ["es6", "dom", "es2016", "es2017"],
-        sourceMap: true,
-        allowJs: false,
-        jsx: "react",
-        declaration: true,
-        forceConsistentCasingInFileNames: true,
-        noImplicitReturns: true,
-        noImplicitThis: true,
-        noImplicitAny: true,
-        strictNullChecks: true,
-        suppressImplicitAnyIndexErrors: true,
-        noUnusedLocals: false,
-        noUnusedParameters: true,
-        esModuleInterop: true
-      }
+import type { StorybookConfig } from '@storybook/react-vite'
+import { withoutVitePlugins } from '@storybook/builder-vite'
+
+const config: StorybookConfig = {
+    stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+    addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-onboarding', '@storybook/addon-interactions'],
+    framework: {
+        name: '@storybook/react-vite',
+        options: {}
+    },
+    docs: {
+        autodocs: 'tag'
+    },
+    viteFinal: async (config) => {
+        return {
+            ...config,
+            plugins: await withoutVitePlugins(config.plugins, ['vite:lib-inject-css'])
+        }
     }
-  },
-  framework: {
-    name: "@storybook/react-webpack5",
-    options: {}
-  },
-  docs: {
-    autodocs: true
-  }
-};
+}
+
+export default config
