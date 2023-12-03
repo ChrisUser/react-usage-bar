@@ -20,7 +20,7 @@
         "test": "react-scripts test",
         "prepublishOnly": "yarn build",
         "storybook": "storybook dev",
-        "build-storybook": "storybook build -c .storybook -o docs-build .out && touch ./docs-build/.nojekyll"
+        "build-storybook": "storybook build -c .storybook -o docs-build .out"
     },
     "release": {
         "branches": [
