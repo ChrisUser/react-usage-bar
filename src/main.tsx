@@ -28,7 +28,7 @@ const App = () => {
     ]
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 32, width: '100%', marginTop: 24 }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 32, width: '100%', marginTop: 32 }}>
             <div style={{ padding: '24px 0', width: '60%' }}>
                 <UsageBar showFallbackColors items={itemsToDisplay} total={100} />
             </div>
