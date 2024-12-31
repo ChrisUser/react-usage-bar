@@ -32,7 +32,8 @@ yarn add react-usage-bar
 | Package v | Node       |
 | --------- | ---------- |
 | <= 1.1.18 | <= 16.14.x |
-| > 1.1.19  | 18.x.x     |
+| >= 1.1.19 | 18.x.x     |
+| >= 1.2.2  | 20.x.x     |
 
 <br>
 
@@ -159,14 +160,14 @@ Can customize the style of the error message.
 You must import the style directly from the package directory, like this:
 
 ```javascript
-import "react-usage-bar/build/index.css"
+import 'react-usage-bar/build/index.css'
 ```
 
 The project variables are:
 
-- `--text-color`
-- `--background-tooltip-color`
-- `--background-bar-color`
+-   `--text-color`
+-   `--background-tooltip-color`
+-   `--background-bar-color`
 
 The main css classes are the following:
 
@@ -198,8 +199,8 @@ The single item represented in the bar. This class is vastly used.
 
 The tooltip of the item in which are written all the textual info.
 
-- `.o-UsageBar__bar__tooltip__percentage` - Used to control the style of the percentage lables.
-- `::after` - Is used to make the triangular shape on the bottom (or top) of the tooltips.
+-   `.o-UsageBar__bar__tooltip__percentage` - Used to control the style of the percentage lables.
+-   `::after` - Is used to make the triangular shape on the bottom (or top) of the tooltips.
 
 ### `.o-UsageBar__bar__elements__labels__container`
 

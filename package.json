@@ -1,6 +1,6 @@
 {
     "name": "react-usage-bar",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "Usage bar, graphic component for React",
     "main": "dist/main.js",
     "types": "dist/main.d.ts",
@@ -17,7 +17,6 @@
     "scripts": {
         "start": "vite",
         "build": "tsc --p ./tsconfig-build.json && vite build",
-        "test": "react-scripts test",
         "prepublishOnly": "yarn build",
         "storybook": "storybook dev",
         "build-storybook": "storybook build -c .storybook -o docs-build .out"
@@ -40,38 +39,34 @@
     "homepage": "http://ChrisUser.github.io/react-usage-bar",
     "license": "MIT",
     "devDependencies": {
-        "@babel/core": "^7.23.5",
-        "@babel/preset-env": "^7.23.5",
-        "@babel/preset-react": "^7.23.3",
-        "@babel/preset-typescript": "^7.23.3",
-        "@storybook/addon-essentials": "^7.5.2",
-        "@storybook/addon-interactions": "^7.5.2",
-        "@storybook/addon-links": "^7.5.2",
-        "@storybook/addon-onboarding": "^1.0.8",
-        "@storybook/blocks": "^7.5.2",
-        "@storybook/react": "^7.5.2",
-        "@storybook/react-vite": "^7.5.2",
+        "@babel/core": "^7.26.0",
+        "@babel/preset-env": "^7.26.0",
+        "@babel/preset-react": "^7.26.3",
+        "@babel/preset-typescript": "^7.26.0",
+        "@storybook/addon-essentials": "^8.4.7",
+        "@storybook/addon-interactions": "^8.4.7",
+        "@storybook/addon-links": "^8.4.7",
+        "@storybook/addon-onboarding": "^8.4.7",
+        "@storybook/blocks": "^8.4.7",
+        "@storybook/react": "^8.4.7",
+        "@storybook/react-vite": "^8.4.7",
         "@storybook/testing-library": "^0.2.2",
-        "@types/react": "^18.2.39",
-        "@types/react-dom": "^18.2.17",
-        "@vitejs/plugin-react": "^4.1.0",
-        "babel-loader": "^9.1.3",
-        "postcss": "^8.4.24",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "storybook": "7.6.2",
+        "@types/react": "^19.0.2",
+        "@types/react-dom": "^19.0.2",
+        "@vitejs/plugin-react": "^4.3.4",
+        "babel-loader": "^9.2.1",
+        "glob": "^11.0.0",
+        "postcss": "^8.4.49",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "storybook": "^8.4.7",
         "ts-loader": "^9.5.1",
-        "typescript": "^5.3.2",
-        "vite": "^5.0.4",
-        "vite-plugin-dts": "^3.6.0"
+        "typescript": "^5.7.2",
+        "vite": "^6.0.6",
+        "vite-plugin-dts": "^4.4.0"
     },
     "peerDependencies": {
-        "react": "^16",
-        "react-dom": "^16"
-    },
-    "resolutions": {
-        "jackspeak": "2.1.1",
-        "minimist": "1.2.6",
-        "semver": "7.5.4"
+        "react": "^18",
+        "react-dom": "^18"
     }
 }

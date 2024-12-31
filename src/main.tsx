@@ -23,7 +23,7 @@ const App = () => {
         },
         {
             name: 'Other',
-            value: 8
+            value: 10
         }
     ]
 
