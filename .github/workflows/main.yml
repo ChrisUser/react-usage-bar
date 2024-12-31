@@ -1,87 +1,89 @@
 name: Release workflow
 
-on: [push]
+on:
+    push:
+        branches: [main]
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NPM_PACKAGE_NAME: "react-usage-bar"
-  VERSION: ""
-  PUBLISHED_VERSION: ""
-  NODE_VERSION: "18.x"
+    GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    NPM_PACKAGE_NAME: 'react-usage-bar'
+    VERSION: ''
+    PUBLISHED_VERSION: ''
+    NODE_VERSION: '20.x'
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+    build-and-test:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x] # 16.x removed since react-usage-bar v1.1.19
+        strategy:
+            matrix:
+                node-version: [20.x]
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - name: Install and Build
-        run: | # Install npm packages and build the src files
-          npm install --force
-          npm run build --if-present
+        steps:
+            - uses: actions/checkout@v3
+            - name: Setup Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'npm'
+            - name: Install and Build
+              run: | # Install npm packages and build the src files
+                  npm install --force
+                  npm run build --if-present
 
-  tag-and-npm-publish:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    needs: [build-and-test]
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-        with:
-          token: ${{ env.GITHUB_TOKEN }}
-      - uses: actions/setup-node@v2.5.1
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          check-latest: true
-      - name: Set NPM
-        run: |
-          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-      - name: Set version
-        run: |
-          echo VERSION=$(npm pkg get version | sed 's/"//g') >> $GITHUB_ENV
-          echo PUBLISHED_VERSION=$(npm show $NPM_PACKAGE_NAME version) >> $GITHUB_ENV
-          echo "VERSION ${VERSION}"
-          echo "NPM_PACKAGE_NAME ${NPM_PACKAGE_NAME}"
-      - name: Install dependecies
-        if: ${{ env.VERSION != env.PUBLISHED_VERSION }}
-        run: |
-          yarn install
-      - name: Build typescript
-        if: ${{ env.VERSION != env.PUBLISHED_VERSION }}
-        run: yarn build
-      - run: npm publish --dry-run
-      - uses: step-security/wait-for-secrets@v1
-        id: wait-for-secrets
-        with:
-          secrets: |
-            OTP: 
-              name: 'OTP to publish package'
-              description: 'OTP from authenticator app'
-      - name: Publish on NPM
-        if: ${{ env.VERSION != env.PUBLISHED_VERSION }}
-        run: |
-          git tag v${VERSION} ${GITHUB_SHA} || exit 0
-          git push origin v${VERSION}
-          npm publish --otp ${{ steps.wait-for-secrets.outputs.OTP }}
-      - name: Check loaded and NPM version
-        if: ${{ env.VERSION == env.PUBLISHED_VERSION }}
-        run: |
-          echo "The loaded version is the same on npm. 0 new uploaded versions."
-          exit 0;
-      - name: Remove NPM token
-        if: always()
-        run: |
-          rm .npmrc
+    tag-and-npm-publish:
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
+        needs: [build-and-test]
+        steps:
+            - name: Check out repository code
+              uses: actions/checkout@v4
+              with:
+                  token: ${{ env.GITHUB_TOKEN }}
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+                  check-latest: true
+            - name: Set NPM
+              run: |
+                  echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+            - name: Set version
+              run: |
+                  echo VERSION=$(npm pkg get version | sed 's/"//g') >> $GITHUB_ENV
+                  echo PUBLISHED_VERSION=$(npm show $NPM_PACKAGE_NAME version) >> $GITHUB_ENV
+                  echo "VERSION ${VERSION}"
+                  echo "NPM_PACKAGE_NAME ${NPM_PACKAGE_NAME}"
+            - name: Install dependecies
+              if: ${{ env.VERSION != env.PUBLISHED_VERSION }}
+              run: |
+                  yarn install
+            - name: Build typescript
+              if: ${{ env.VERSION != env.PUBLISHED_VERSION }}
+              run: yarn build
+            - run: npm publish --dry-run
+            - uses: step-security/wait-for-secrets@v1
+              id: wait-for-secrets
+              with:
+                  secrets: |
+                      OTP: 
+                        name: 'OTP to publish package'
+                        description: 'OTP from authenticator app'
+            - name: Publish on NPM
+              if: ${{ env.VERSION != env.PUBLISHED_VERSION }}
+              run: |
+                  git tag v${VERSION} ${GITHUB_SHA} || exit 0
+                  git push origin v${VERSION}
+                  npm publish --otp ${{ steps.wait-for-secrets.outputs.OTP }}
+            - name: Check loaded and NPM version
+              if: ${{ env.VERSION == env.PUBLISHED_VERSION }}
+              run: |
+                  echo "The loaded version is the same on npm. 0 new uploaded versions."
+                  exit 0;
+            - name: Remove NPM token
+              if: always()
+              run: |
+                  rm .npmrc
