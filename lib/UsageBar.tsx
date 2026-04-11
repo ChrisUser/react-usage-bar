@@ -1,7 +1,7 @@
-import * as React from 'react'
+import { useMemo, useCallback, Fragment, type FC, type ReactNode, type CSSProperties } from 'react'
 import './index.css'
 
-interface Item {
+export interface Item {
     color?: string
     className?: string
     dotClassName?: string
@@ -9,7 +9,7 @@ interface Item {
     name: string
 }
 
-interface Props {
+export interface UsageBarProps {
     items: Item[]
     total: number
     darkMode?: boolean
@@ -18,11 +18,24 @@ interface Props {
     compactLayout?: boolean
     showFallbackColors?: boolean
     errorMessage?: string
-
+    className?: string
     usageBarContainerClassName?: string
     usageBarClassName?: string
     tooltipClassName?: string
     errorMessageClassName?: string
+    ariaLabel?: string
+    animated?: boolean
+    transitionDuration?: number
+    showTooltipOnHover?: boolean
+    renderTooltip?: (item: Item, percentage: string) => ReactNode
+    renderSegment?: (item: Item, percentage: string, defaultStyle: CSSProperties) => ReactNode
+    segmentGap?: number
+    segmentBorderRadius?: number
+    height?: number | string
+    borderRadius?: number | string
+    remaining?: { name: string; color?: string }
+    onItemClick?: (item: Item, index: number) => void
+    rtl?: boolean
 }
 
 const lightColors: string[] = [
@@ -50,27 +63,28 @@ const darkColors: string[] = [
     '#989BAC' // Manatee (Blue/Gray)
 ]
 
-const getPercentageValue = (value: number, total: number): string => `${((value / total) * 100).toFixed(0)}%`
-
-const shuffleArray = (a: string[]) => {
-    let j, x, i
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1))
-        x = a[i]
-        a[i] = a[j]
-        a[j] = x
-    }
-    return a
+const getPercentageValue = (value: number, total: number): string => {
+    if (total <= 0) return '0%'
+    return `${((value / total) * 100).toFixed(0)}%`
 }
 
-const appendCustomClass = (customClass?: string) => {
+const isSafeColor = (value: string): boolean => !/url\s*\(|expression\s*\(|javascript:|@import/i.test(value)
+
+const isGradient = (value: string): boolean => /^(linear|radial|conic)-gradient\(/i.test(value.trim())
+
+const appendCustomClass = (customClass?: string): string => {
     if (customClass) {
         return customClass[0] === ' ' ? customClass : ` ${customClass}`
     }
     return ''
 }
 
-const UsageBar: React.FC<Props> = ({
+const getColorStyle = (color: string): CSSProperties => {
+    if (isGradient(color)) return { background: color }
+    return { backgroundColor: color }
+}
+
+const UsageBar: FC<UsageBarProps> = ({
     darkMode = false,
     showLabels = true,
     showPercentage = false,
@@ -79,68 +93,143 @@ const UsageBar: React.FC<Props> = ({
     total,
     items,
     errorMessage = 'Error: Total elements values exceed 100%.',
+    className,
     usageBarContainerClassName,
     usageBarClassName,
     tooltipClassName,
-    errorMessageClassName
+    errorMessageClassName,
+    ariaLabel,
+    animated = false,
+    transitionDuration = 0.4,
+    showTooltipOnHover = false,
+    renderTooltip,
+    renderSegment,
+    segmentGap,
+    segmentBorderRadius,
+    height,
+    borderRadius,
+    remaining,
+    onItemClick,
+    rtl = false
 }) => {
-    /**
-     * Checks if the total value is equal or greater than the sum of all the elements values.
-     */
-    const itemsValuesAreCorrect = React.useMemo((): boolean => total >= items.reduce((tot: number, element: Item) => tot + element.value, 0), [items, total])
+    const itemsValuesAreCorrect = useMemo((): boolean => total >= items.reduce((tot: number, el: Item) => tot + el.value, 0), [items, total])
 
-    /**
-     * Returns an array of colors based on the value of `darkMode`.
-     * The colors are either from the `darkColors` array or the `lightColors` array.
-     * The chosen array is shuffled before being returned.
-     */
-    const fallbackColors = React.useMemo(() => {
-        const colorsToPickFrom = darkMode ? [...darkColors] : [...lightColors]
-        shuffleArray(colorsToPickFrom)
-        return colorsToPickFrom
-    }, [])
+    const fallbackColors = useMemo(() => (darkMode ? [...darkColors] : [...lightColors]), [darkMode])
 
-    /**
-     * Returns the color of an element based on certain conditions.
-     *
-     * @param element - The item for which the color needs to be determined.
-     * @param index - The index of the item in the list.
-     * @returns The color of the element, either from the `color` property or a fallback
-     * color from the `fallbackColors` array. If the `element` does not have a `color`
-     * property and `showFallbackColors` is false, null is returned.
-     */
-    const getElementColor = React.useCallback(
-        (element: Item, index: number) => {
-            if (element.color) return element.color
+    const getElementColor = useCallback(
+        (element: Item, index: number): string | null => {
+            if (element.color) return isSafeColor(element.color) ? element.color : null
+            if (remaining && index >= items.length) return null
             return showFallbackColors ? fallbackColors[index % fallbackColors.length] : null
         },
-        [showFallbackColors, fallbackColors]
+        [showFallbackColors, fallbackColors, remaining, items.length]
     )
 
-    if (!itemsValuesAreCorrect) return <span className={`u-UsageBar__error${appendCustomClass(errorMessageClassName)}`}>{errorMessage}</span>
+    const remainingItem: Item | null = useMemo(() => {
+        if (!remaining) return null
+        const sum = items.reduce((tot, el) => tot + el.value, 0)
+        const value = Math.max(0, total - sum)
+        if (value <= 0) return null
+        return { name: remaining.name, value, color: remaining.color }
+    }, [remaining, items, total])
 
-    if (items.length === 0) return null
+    const allItems = useMemo(() => (remainingItem ? [...items, remainingItem] : items), [items, remainingItem])
+
+    const hasGap = segmentGap != null && segmentGap > 0
+
+    const getSegmentStyle = (element: Item, index: number): CSSProperties => {
+        const color = getElementColor(element, index)
+        const style: CSSProperties = { width: getPercentageValue(element.value, total) }
+
+        if (color) Object.assign(style, getColorStyle(color))
+
+        if (animated) style.transition = `width ${transitionDuration}s ease`
+
+        if (hasGap) {
+            const r =
+                segmentBorderRadius != null
+                    ? `${segmentBorderRadius}px`
+                    : borderRadius != null
+                      ? typeof borderRadius === 'number'
+                          ? `${borderRadius}px`
+                          : borderRadius
+                      : '4pt'
+            style.borderRadius = r
+            style.borderLeft = 'none'
+            style.borderRight = 'none'
+        } else if (segmentBorderRadius != null) {
+            style.borderRadius = `${segmentBorderRadius}px`
+        } else if (borderRadius != null) {
+            const r = typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius
+            if (allItems.length === 1) style.borderRadius = r
+            else if (index === 0) style.borderRadius = `${r} 0 0 ${r}`
+            else if (index === allItems.length - 1) style.borderRadius = `0 ${r} ${r} 0`
+        }
+
+        if (onItemClick && index < items.length) style.cursor = 'pointer'
+
+        return style
+    }
+
+    if (!itemsValuesAreCorrect) {
+        return <span className={`u-UsageBar__error${appendCustomClass(errorMessageClassName)}`}>{errorMessage}</span>
+    }
+
+    if (items.length === 0 && !remainingItem) return null
+
+    const containerClasses = `c-UsageBar ${darkMode ? 'u-UsageBar-dark' : 'u-UsageBar-light'}${appendCustomClass(className)}${appendCustomClass(usageBarContainerClassName)}`
+    const barClasses = `o-UsageBar__bar${compactLayout ? ' o-UsageBar__compact__bar' : ''}${showTooltipOnHover ? ' o-UsageBar__bar--hover-tooltips' : ''}${appendCustomClass(usageBarClassName)}`
+
+    const barStyle: CSSProperties = {
+        ...(height != null ? { height: typeof height === 'number' ? `${height}px` : height } : {}),
+        ...(borderRadius != null ? { borderRadius: typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius } : {}),
+        ...(hasGap ? { gap: `${segmentGap}px` } : {})
+    }
+
+    const renderDefaultTooltipContent = (element: Item, _pct: string) => (
+        <>
+            <span>{element.name}</span>
+            {showPercentage && <UsageBarPercentageLabel element={element} total={total} />}
+        </>
+    )
 
     if (compactLayout) {
         return (
-            <div className={`c-UsageBar ${darkMode ? 'u-UsageBar-dark' : 'u-UsageBar-light'}${appendCustomClass(usageBarContainerClassName)}`}>
-                <div className={`o-UsageBar__bar o-UsageBar__compact__bar${appendCustomClass(usageBarClassName)}`}>
-                    {items.map((element: Item, index: number) => (
-                        <UsageBarElement element={element} color={getElementColor(element, index)} total={total} key={index} />
-                    ))}
+            <div className={containerClasses} role="figure" aria-label={ariaLabel || 'Usage bar'} dir={rtl ? 'rtl' : undefined}>
+                <div className={barClasses} style={barStyle}>
+                    {allItems.map((element: Item, index: number) => {
+                        const pct = getPercentageValue(element.value, total)
+                        const segStyle = getSegmentStyle(element, index)
+
+                        if (renderSegment) return <Fragment key={index}>{renderSegment(element, pct, segStyle)}</Fragment>
+
+                        return (
+                            <UsageBarElement
+                                key={index}
+                                element={element}
+                                style={segStyle}
+                                onClick={onItemClick && index < items.length ? () => onItemClick(element, index) : undefined}
+                                role="meter"
+                                aria-valuenow={element.value}
+                                aria-valuemin={0}
+                                aria-valuemax={total}
+                                aria-label={`${element.name}: ${pct}`}
+                            />
+                        )
+                    })}
                 </div>
                 {showLabels && (
                     <div className="o-UsageBar__bar__elements__labels__container">
-                        {items.map((element: Item, index: number) => {
+                        {allItems.map((element: Item, index: number) => {
                             const color = getElementColor(element, index)
+                            const pct = getPercentageValue(element.value, total)
                             return (
                                 <div key={index} className="o-UsageBar__bar__elements__label">
                                     <div
                                         className={`o-UsageBar__bar__elements__label--dot${appendCustomClass(element.dotClassName)}`}
-                                        style={color ? { backgroundColor: color } : {}}
+                                        style={color ? getColorStyle(color) : {}}
                                     />
-                                    <span>{element.name}</span>
-                                    {showPercentage && <UsageBarPercentageLabel element={element} total={total} />}
+                                    {renderTooltip ? renderTooltip(element, pct) : renderDefaultTooltipContent(element, pct)}
                                 </div>
                             )
                         })}
@@ -151,43 +240,58 @@ const UsageBar: React.FC<Props> = ({
     }
 
     return (
-        <div className={`c-UsageBar ${darkMode ? 'u-UsageBar-dark' : 'u-UsageBar-light'}${appendCustomClass(usageBarContainerClassName)}`}>
-            <div className={`o-UsageBar__bar${appendCustomClass(usageBarClassName)}`}>
-                {items.map((element: Item, index: number) => (
-                    <UsageBarElement element={element} color={getElementColor(element, index)} total={total} key={index}>
-                        {showLabels && (
-                            <div className={`o-UsageBar__bar__tooltip${appendCustomClass(tooltipClassName)}`}>
-                                <span>{element.name}</span>
-                                {showPercentage && <UsageBarPercentageLabel element={element} total={total} />}
-                            </div>
-                        )}
-                    </UsageBarElement>
-                ))}
+        <div className={containerClasses} role="figure" aria-label={ariaLabel || 'Usage bar'} dir={rtl ? 'rtl' : undefined}>
+            <div className={barClasses} style={barStyle}>
+                {allItems.map((element: Item, index: number) => {
+                    const pct = getPercentageValue(element.value, total)
+                    const segStyle = getSegmentStyle(element, index)
+
+                    if (renderSegment) return <Fragment key={index}>{renderSegment(element, pct, segStyle)}</Fragment>
+
+                    return (
+                        <UsageBarElement
+                            key={index}
+                            element={element}
+                            style={segStyle}
+                            onClick={onItemClick && index < items.length ? () => onItemClick(element, index) : undefined}
+                            role="meter"
+                            aria-valuenow={element.value}
+                            aria-valuemin={0}
+                            aria-valuemax={total}
+                            aria-label={`${element.name}: ${pct}`}
+                        >
+                            {showLabels && (
+                                <div className={`o-UsageBar__bar__tooltip${appendCustomClass(tooltipClassName)}`}>
+                                    {renderTooltip ? renderTooltip(element, pct) : renderDefaultTooltipContent(element, pct)}
+                                </div>
+                            )}
+                        </UsageBarElement>
+                    )
+                })}
             </div>
         </div>
     )
 }
 
-const UsageBarElement: React.FC<{
+const UsageBarElement: FC<{
     element: Item
-    color: string | null
-    total: number
-    children?: React.ReactNode
-}> = ({ element, color, total, children }) => {
+    style?: CSSProperties
+    children?: ReactNode
+    onClick?: () => void
+    role?: string
+    'aria-valuenow'?: number
+    'aria-valuemin'?: number
+    'aria-valuemax'?: number
+    'aria-label'?: string
+}> = ({ element, style, children, onClick, ...ariaProps }) => {
     return (
-        <div
-            className={`o-UsageBar__bar__element${appendCustomClass(element.className)}`}
-            style={{
-                width: getPercentageValue(element.value, total),
-                ...(color ? { backgroundColor: color } : null)
-            }}
-        >
+        <div className={`o-UsageBar__bar__element${appendCustomClass(element.className)}`} style={style} onClick={onClick} {...ariaProps}>
             {children}
         </div>
     )
 }
 
-const UsageBarPercentageLabel: React.FC<{ element: Item; total: number }> = ({ element, total }) => {
+const UsageBarPercentageLabel: FC<{ element: Item; total: number }> = ({ element, total }) => {
     return <span className="o-UsageBar__bar__tooltip__percentage">{getPercentageValue(element.value, total)}</span>
 }
 

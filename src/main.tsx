@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
 import UsageBar from '../lib/UsageBar'
 
 const App = () => {
@@ -41,12 +41,18 @@ const App = () => {
             <div style={{ padding: '24px 0', width: '60%' }}>
                 <UsageBar darkMode showFallbackColors compactLayout showLabels={false} items={itemsToDisplay} total={100} />
             </div>
+            <div style={{ padding: '24px 0', width: '60%' }}>
+                <UsageBar animated showTooltipOnHover showFallbackColors items={itemsToDisplay} total={100} height={14} borderRadius={7} />
+            </div>
+            <div style={{ padding: '24px 0', width: '60%' }}>
+                <UsageBar showFallbackColors compactLayout showPercentage items={itemsToDisplay} total={150} remaining={{ name: 'Available', color: '#d4d4d4' }} segmentGap={3} />
+            </div>
         </div>
     )
 }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
+createRoot(document.getElementById('root')!).render(
+    <StrictMode>
         <App />
-    </React.StrictMode>
+    </StrictMode>
 )

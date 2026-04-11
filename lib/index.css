@@ -47,7 +47,6 @@
   align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
-  background-color: inherit;
   background-color: var(--background-bar-color);
   border-radius: 4pt;
 }
@@ -62,6 +61,9 @@
 }
 .o-UsageBar__bar__element:last-of-type {
   border-radius: 0 4pt 4pt 0;
+}
+.o-UsageBar__bar__element:only-of-type {
+  border-radius: 4pt;
 }
 .o-UsageBar__bar__element:nth-child(odd) > .o-UsageBar__bar__tooltip {
   top: -26pt;
@@ -92,6 +94,7 @@
   align-items: flex-end;
   flex-direction: row;
   flex-wrap: nowrap;
+  white-space: nowrap;
   position: absolute;
   padding: 5pt;
   border-radius: 4pt;
@@ -99,6 +102,11 @@
   color: var(--text-color);
   font-size: 0.9em;
   line-height: 1;
+}
+.o-UsageBar__bar__tooltip > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
 }
 .o-UsageBar__bar__tooltip__percentage {
   opacity: 0.78;
@@ -141,10 +149,30 @@
 .o-UsageBar__bar__elements__label > .o-UsageBar__bar__tooltip__percentage {
   color: var(--background-tooltip-color);
 }
+.o-UsageBar__bar__elements__label > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
 .o-UsageBar__bar__elements__label--dot {
   border-radius: 50%;
   margin-right: 6pt;
   height: 8pt;
   width: 8pt;
   border: 1px solid var(--background-bar-color);
+}
+
+/** Hover tooltip mode */
+
+.o-UsageBar__bar--hover-tooltips .o-UsageBar__bar__tooltip {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.o-UsageBar__bar--hover-tooltips .o-UsageBar__bar__element:hover > .o-UsageBar__bar__tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+.o-UsageBar__bar--hover-tooltips .o-UsageBar__bar__element:hover {
+  filter: brightness(1.1);
 }

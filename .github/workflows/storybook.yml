@@ -6,19 +6,19 @@ jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout 🛎️
+            - name: Checkout
               uses: actions/checkout@v4
               with:
                   persist-credentials: false
-            - name: Install and Build 🔧
-              run: | # Install npm packages and build the Storybook files
-                  npm install --force
-                  npm run build-storybook
+            - name: Install and Build
+              run: |
+                  yarn install
+                  yarn build-storybook
             - name: Get commit info
               shell: bash
               run: |
                   echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
-            - name: Deploy 🚀
+            - name: Deploy
               uses: crazy-max/ghaction-github-pages@v4
               with:
                   target_branch: docs

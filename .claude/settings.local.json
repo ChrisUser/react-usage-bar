@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la *.png)",
+      "Bash(du -sh *.png)",
+      "Bash(npm outdated:*)",
+      "Bash(npm audit:*)",
+      "Bash(yarn outdated:*)",
+      "Bash(yarn audit:*)",
+      "WebSearch",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:reactscript.com)",
+      "WebFetch(domain:thelinuxcode.com)",
+      "Bash(yarn upgrade:*)",
+      "Bash(yarn build:*)",
+      "Bash(yarn build-storybook:*)"
+    ]
+  }
+}

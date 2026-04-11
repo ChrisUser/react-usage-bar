@@ -1,2 +1,2 @@
-import UsageBar from "./UsageBar"
-export default UsageBar
+export { default } from './UsageBar'
+export type { Item, UsageBarProps } from './UsageBar'

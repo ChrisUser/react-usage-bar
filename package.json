@@ -1,6 +1,6 @@
 {
     "name": "react-usage-bar",
-    "version": "1.2.2",
+    "version": "1.4.0",
     "description": "Usage bar, graphic component for React",
     "main": "dist/main.js",
     "types": "dist/main.d.ts",
@@ -50,23 +50,20 @@
         "@storybook/blocks": "^8.4.7",
         "@storybook/react": "^8.4.7",
         "@storybook/react-vite": "^8.4.7",
-        "@storybook/testing-library": "^0.2.2",
         "@types/react": "^19.0.2",
         "@types/react-dom": "^19.0.2",
         "@vitejs/plugin-react": "^4.3.4",
-        "babel-loader": "^9.2.1",
-        "glob": "^11.0.0",
+        "glob": "^11.1.0",
         "postcss": "^8.4.49",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "storybook": "^8.4.7",
-        "ts-loader": "^9.5.1",
         "typescript": "^5.7.2",
-        "vite": "^6.0.6",
+        "vite": "^6.4.2",
         "vite-plugin-dts": "^4.4.0"
     },
     "peerDependencies": {
-        "react": "^18",
-        "react-dom": "^18"
+        "react": "^18 || ^19",
+        "react-dom": "^18 || ^19"
     }
 }
